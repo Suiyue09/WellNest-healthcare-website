@@ -1,0 +1,90 @@
+@page
+@model Healthcare_Industry.Pages.Customer.PaymentGatewayModel
+@{
+    Layout = null;
+    var order = Model.Order!;
+    ViewData["Title"] = "Payment Gateway";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Gateway - WellNest</title>
+    <link rel="stylesheet" href="~/css/customer-pages.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a class="nav-back-icon" href="javascript:history.back()" aria-label="Back" title="Back">&#8592;</a>
+            <a class="logo" asp-page="/Customer/HomePage">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="nav-spacer"></span>
+        </div>
+    </nav>
+
+    <main class="wrap" style="max-width:760px;">
+        <section class="page-head">
+            <div>
+                <div class="eyebrow">Demo payment gateway</div>
+                <h1>Complete payment</h1>
+                <p>This page represents a cloud payment provider such as Stripe or Billplz.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Payment request</h2>
+            <div class="row"><span>Order</span><strong>#@order.Id</strong></div>
+            <div class="row"><span>Reference</span><strong>@Model.Reference</strong></div>
+            <div class="row"><span>Method</span><strong>@order.PaymentMethod</strong></div>
+            <div class="row total"><span>Amount</span><strong>RM @order.Total.ToString("0.00")</strong></div>
+
+            <div class="payment-options" style="margin-top:18px;">
+                @if (order.PaymentMethod == "GatewayBanking")
+                {
+                    <div class="payment-option">
+                        <label for="bank">Select FPX bank</label>
+                        <select id="bank" class="select">
+                            <option>Maybank2u</option>
+                            <option>CIMB Clicks</option>
+                            <option>Public Bank</option>
+                            <option>RHB Online Banking</option>
+                        </select>
+                        <p class="muted">In a live Billplz or Stripe FPX integration, this step would redirect to the selected bank for login and TAC approval.</p>
+                    </div>
+                }
+                else if (order.PaymentMethod == "GatewayWallet")
+                {
+                    <div class="payment-option">
+                        <label for="wallet">Select e-wallet</label>
+                        <select id="wallet" class="select">
+                            <option>Touch 'n Go eWallet</option>
+                            <option>GrabPay</option>
+                            <option>Boost</option>
+                            <option>ShopeePay</option>
+                        </select>
+                        <p class="muted">A live gateway would open the wallet authorization screen or QR approval flow.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="payment-option">
+                        <label>Card payment</label>
+                        <p class="muted">A live gateway would collect card details on its PCI-compliant checkout page, not inside WellNest.</p>
+                    </div>
+                }
+            </div>
+
+            <form method="post" asp-page-handler="Complete" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+                <input type="hidden" name="orderId" value="@order.Id" />
+                <input type="hidden" name="reference" value="@Model.Reference" />
+                <button class="btn btn-primary" type="submit" name="success" value="true">Confirm payment success</button>
+                <button class="btn btn-secondary" type="submit" name="success" value="false">Simulate failed payment</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,155 @@
+@page
+@using Healthcare_Industry.Models
+@using Healthcare_Industry.Services
+@model Healthcare_Industry.Pages.Customer.CheckoutModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Checkout";
+    var initial = CustomerDisplayService.GetInitial(Model.Input.FullName, Model.Input.Email);
+    var selectedIds = Model.Input.SelectedCartItemIds;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - WellNest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/customer-pages.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a class="nav-back-icon" href="javascript:history.back()" aria-label="Back" title="Back">&#8592;</a>
+            <a class="logo" asp-page="/Customer/HomePage">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="nav-spacer"></span>
+            <partial name="_CartLink" model="@("icon-link")" />
+            <a class="nav-link" asp-page="/Customer/History">🧾 My Orders</a>
+            <a class="nav-link profile-link" asp-page="/Customer/Profile"><span class="avatar">@initial</span> My Profile</a>
+        </div>
+    </nav>
+
+    <main class="wrap">
+        <section class="page-head">
+            <div>
+                <div class="eyebrow">Secure checkout</div>
+                <h1>Delivery and payment</h1>
+                <p>Your address is pre-filled from your profile and saved after order placement.</p>
+            </div>
+        </section>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="notice bad auto-dismiss" asp-validation-summary="All"></div>
+        }
+
+        <section class="grid-2">
+            <form class="panel" method="post" asp-page-handler="PlaceOrder">
+                <h2>Delivery details</h2>
+                <input type="hidden" asp-for="Input.FullName" />
+                <input type="hidden" asp-for="Input.Email" />
+                <input type="hidden" asp-for="Input.PhoneNumber" />
+                <input type="hidden" asp-for="Input.Address" />
+                <input type="hidden" asp-for="Input.ConfirmOrder" value="true" />
+                <input type="hidden" asp-for="Input.SelectedCartItemIds" />
+                <p class="muted" style="margin-top:-8px;">Choose the saved delivery details from your profile.</p>
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <label><input class="check" type="radio" checked /> Use default profile details</label>
+                        <strong>@Model.Input.FullName</strong><br />
+                        @Model.Input.PhoneNumber · @Model.Input.Email<br />
+                        @Model.Input.Address<br />
+                        <a asp-page="/Customer/Profile" style="color:var(--primary);font-weight:800;">Edit profile details</a>
+                    </div>
+                </div>
+
+                <h2 style="margin-top:24px;">Voucher</h2>
+                <div class="payment-options">
+                    @if (Model.ShippingVoucher is not null)
+                    {
+                        var shippingVoucher = Model.ShippingVoucher;
+                        <div class="payment-option @(shippingVoucher.IsEligible ? "voucher-applied" : "")">
+                            <label>
+                                <input class="check voucher-select" type="radio" checked="@shippingVoucher.IsEligible" disabled />
+                                @shippingVoucher.Voucher.Title
+                            </label>
+                            <p class="muted">@shippingVoucher.Voucher.Description</p>
+                            <p class="muted">
+                                @(shippingVoucher.IsEligible
+                                    ? "Free shipping has been automatically applied."
+                                    : shippingVoucher.Reason)
+                            </p>
+                        </div>
+                    }
+                    @foreach (var voucher in Model.EligibleRewardVouchers)
+                    {
+                        <div class="payment-option">
+                            <label>
+                                <input class="check voucher-select" asp-for="Input.RewardVoucherCode" type="radio" value="@voucher.Code" checked="@(Model.Input.RewardVoucherCode == voucher.Code)" />
+                                @voucher.Voucher.Title
+                            </label>
+                            <p class="muted">@voucher.Voucher.Description</p>
+                            @if (voucher.EstimatedSavings > 0)
+                            {
+                                <p class="muted">Estimated @(voucher.Voucher.Group == VoucherGroup.Cashback ? "cashback" : "saving"): RM @voucher.EstimatedSavings.ToString("0.00")</p>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <h2 style="margin-top:24px;">Payment method</h2>
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <label><input class="check" asp-for="Input.PaymentMethod" type="radio" value="GatewayBanking" checked /> FPX / online banking</label>
+                        <p class="muted">Pay securely through Malaysian online banking with Stripe FPX.</p>
+                    </div>
+                    <div class="payment-option">
+                        <label><input class="check" asp-for="Input.PaymentMethod" type="radio" value="GatewayWallet" /> GrabPay e-wallet</label>
+                        <p class="muted">Pay with GrabPay through Stripe Checkout.</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit" style="margin-top:22px;width:100%;">Confirm order and proceed to payment</button>
+            </form>
+
+            <aside class="summary">
+                <h2>Order summary</h2>
+                @foreach (var item in Model.CartItems)
+                {
+                    var product = item.Product;
+                    <div class="row checkout-product-row">
+                        <span class="checkout-product">
+                            @if (!string.IsNullOrWhiteSpace(product?.ImageUrl))
+                            {
+                                <img class="product-img" src="@product.ImageUrl" alt="@(product.Name)" loading="lazy" />
+                            }
+                            <span>@product?.Name × @item.Quantity</span>
+                        </span>
+                        <strong>RM @Model.GetLineTotal(item).ToString("0.00")</strong>
+                    </div>
+                    @if (Model.GetLineDiscount(item) > 0)
+                    {
+                        <div class="row"><span class="muted">Buy 1 Free 1 saving</span><strong>- RM @Model.GetLineDiscount(item).ToString("0.00")</strong></div>
+                    }
+                }
+                <div class="row"><span>Subtotal</span><strong>RM @Model.Subtotal.ToString("0.00")</strong></div>
+                <div class="row"><span>Discounts</span><strong>- RM @Model.Discount.ToString("0.00")</strong></div>
+                <div class="row"><span>Shipping</span><strong>@(Model.Shipping == 0 ? "Free" : $"RM {Model.Shipping:0.00}")</strong></div>
+                <div class="row total"><span>Total</span><strong>RM @Model.Total.ToString("0.00")</strong></div>
+                @if (!string.IsNullOrWhiteSpace(Model.VoucherMessage))
+                {
+                    <div class="notice @(Model.AppliedVoucherCode is null ? "bad" : "good")" style="margin-top:14px;">@Model.VoucherMessage</div>
+                }
+            </aside>
+        </section>
+    </main>
+
+    <partial name="_CustomerFooter" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

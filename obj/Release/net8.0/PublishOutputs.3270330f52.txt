@@ -1,0 +1,20 @@
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Healthcare Industry.exe
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\appsettings.Development.json
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\appsettings.json
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\aws-beanstalk-tools-defaults.json
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Healthcare Industry.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Healthcare Industry.runtimeconfig.json
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Healthcare Industry.pdb
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Microsoft.EntityFrameworkCore.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\MySqlConnector.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Newtonsoft.Json.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Npgsql.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Stripe.net.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\System.Configuration.ConfigurationManager.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Itsuki\AppData\Local\Temp\82b9c194-3fc6-4140-ab86-351fda46cada\Healthcare Industry.deps.json

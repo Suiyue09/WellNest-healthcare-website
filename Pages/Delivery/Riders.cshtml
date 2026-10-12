@@ -1,0 +1,556 @@
+﻿@page
+@model Healthcare_Industry.Pages.Delivery.RidersModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riders — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: #0d2454;
+            margin-bottom: 0.3rem;
+        }
+
+        .page-subtitle {
+            color: #6b7a99;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .notice {
+            padding: 0.9rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
+
+            .notice.good {
+                background: #e0f7f4;
+                color: #00a896;
+            }
+
+            .notice.bad {
+                background: #fee2e2;
+                color: #e8524a;
+            }
+
+        .rider-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+        }
+
+            .rider-card.locked {
+                border: 1.5px solid #fee2e2;
+                background: #fffafa;
+            }
+
+        .rider-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rider-name {
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #0d2454;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lock-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: #fee2e2;
+            color: #e8524a;
+            padding: 0.15rem 0.6rem;
+            border-radius: 999px;
+        }
+
+        .rider-contact {
+            color: #6b7a99;
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+        }
+
+        .rider-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .rider-stat {
+            text-align: right;
+        }
+
+            .rider-stat .num {
+                font-family: 'Lora', serif;
+                font-weight: 700;
+                font-size: 1.2rem;
+                color: #1246a0;
+            }
+
+            .rider-stat.earned .num {
+                color: #00a896;
+            }
+
+            .rider-stat .lbl {
+                font-size: 0.75rem;
+                color: #6b7a99;
+                margin-top: 0.1rem;
+            }
+
+        .withdrawals {
+            border-top: 1px solid #eef6ff;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .withdraw-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff8e1;
+            border: 1px solid #f5e0a3;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.6rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+            .withdraw-row:last-child {
+                margin-bottom: 0;
+            }
+
+        .withdraw-info {
+            font-size: 0.88rem;
+            color: #8a6d1e;
+            font-weight: 600;
+        }
+
+        .withdraw-date {
+            font-size: 0.78rem;
+            color: #a0894a;
+            font-weight: 400;
+        }
+
+        .actions {
+            border-top: 1px solid #eef6ff;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .edit-form {
+            display: none;
+            border-top: 1px solid #eef6ff;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+            .edit-form.open {
+                display: flex;
+            }
+
+            .edit-form input {
+                flex: 1;
+                min-width: 160px;
+                padding: 0.6rem 0.8rem;
+                border: 1px solid #ddeeff;
+                border-radius: 8px;
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.9rem;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-mark-paid, .btn-save {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-mark-paid:hover, .btn-save:hover {
+                opacity: 0.88;
+            }
+
+        .btn-edit {
+            background: #eef6ff;
+            color: #1246a0;
+        }
+
+        .btn-lock {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .btn-unlock {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .history-panel {
+            display: none;
+            border-top: 1px solid #eef6ff;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+
+            .history-panel.open {
+                display: block;
+            }
+
+        .history-empty {
+            color: #6b7a99;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .history-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eef6ff;
+        }
+
+            .history-row:last-child {
+                border-bottom: none;
+            }
+
+        .history-main {
+            font-size: 0.88rem;
+        }
+
+        .history-order {
+            font-weight: 700;
+            color: #0d2454;
+        }
+
+        .history-address {
+            color: #6b7a99;
+            font-size: 0.8rem;
+            margin-top: 0.1rem;
+        }
+
+        .history-side {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .history-earning {
+            font-weight: 700;
+            color: #00a896;
+            font-size: 0.9rem;
+        }
+
+        .history-date {
+            color: #a0acc4;
+            font-size: 0.75rem;
+            margin-top: 0.1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7a99;
+            background: #fff;
+            border-radius: 16px;
+        }
+
+            .empty-state .emoji {
+                font-size: 3rem;
+                margin-bottom: 0.8rem;
+            }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/DeliveryDashboard">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">DELIVERY ADMIN</span>
+        </div>
+        <div class="topbar-nav">
+            <a href="/Delivery/DeliveryDashboard">Dashboard</a>
+            <a href="/Delivery/AssignOrders">My Orders</a>
+            <a href="/Delivery/Riders" class="active">Riders</a>
+            <a href="/Delivery/Payout">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="page-title">Riders</div>
+        <div class="page-subtitle">Deliveries, earnings, and account management for each active rider.</div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <div class="notice @(Model.IsSuccess ? "good" : "bad")">@Model.Message</div>
+        }
+
+        @if (!Model.Riders.Any())
+        {
+            <div class="empty-state">
+                <div class="emoji">🛵</div>
+                <div>No riders have picked up any orders yet.</div>
+            </div>
+        }
+        else
+        {
+            @foreach (var rider in Model.Riders)
+            {
+                <div class="rider-card @(rider.IsLocked ? "locked" : "")">
+                    <div class="rider-head">
+                        <div>
+                            <div class="rider-name">
+                                @rider.Name
+                                @if (rider.IsLocked)
+                                {
+                                    <span class="lock-tag">BLOCKED</span>
+                                }
+                            </div>
+                            <div class="rider-contact">
+                                @(string.IsNullOrWhiteSpace(rider.Phone) ? "No phone on file" : rider.Phone)
+                                @(!string.IsNullOrWhiteSpace(rider.Email) ? $" · {rider.Email}" : "")
+                            </div>
+                        </div>
+                        <div class="rider-stats">
+                            <div class="rider-stat">
+                                <div class="num">@rider.TotalDelivered</div>
+                                <div class="lbl">Delivered</div>
+                            </div>
+                            <div class="rider-stat earned">
+                                <div class="num">RM@(rider.TotalEarned.ToString("0.00"))</div>
+                                <div class="lbl">Total Earned</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (rider.PendingWithdrawals.Any())
+                    {
+                        <div class="withdrawals">
+                            @foreach (var w in rider.PendingWithdrawals)
+                            {
+                                <div class="withdraw-row">
+                                    <div class="withdraw-info">
+                                        💰 Withdrawal request: RM@(w.Amount.ToString("0.00"))
+                                        <div class="withdraw-date">Requested @w.RequestedAt.ToLocalTime().ToString("d MMM yyyy, h:mm tt")</div>
+                                    </div>
+                                    <form method="post" asp-page-handler="MarkPaid">
+                                        <input type="hidden" name="withdrawalId" value="@w.Id" />
+                                        <button type="submit" class="btn btn-mark-paid">Mark as Paid</button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-edit" onclick="document.getElementById('edit-@rider.Id').classList.toggle('open')">✏️ Edit Details</button>
+                        <button type="button" class="btn btn-edit" onclick="document.getElementById('pw-@rider.Id').classList.toggle('open')">🔑 Reset Password</button>
+                        <button type="button" class="btn btn-edit" onclick="document.getElementById('hist-@rider.Id').classList.toggle('open')">📜 View History</button>
+
+                        <form method="post" asp-page-handler="ToggleLock" style="display:inline;">
+                            <input type="hidden" name="riderId" value="@rider.Id" />
+                            @if (rider.IsLocked)
+                            {
+                                <button type="submit" class="btn btn-unlock">🔓 Unblock Login</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-lock">🔒 Block Login</button>
+                            }
+                        </form>
+
+                        <form method="post" asp-page-handler="DeleteRider" style="display:inline;" onsubmit="return confirm('Permanently delete @rider.Name\'s account? This cannot be undone.');">
+                            <input type="hidden" name="riderId" value="@rider.Id" />
+                            <button type="submit" class="btn btn-delete">🗑️ Delete Account</button>
+                        </form>
+                    </div>
+
+                    <form id="edit-@rider.Id" class="edit-form" method="post" asp-page-handler="EditRider">
+                        <input type="hidden" name="riderId" value="@rider.Id" />
+                        <input type="text" name="fullName" value="@rider.Name" placeholder="Full name" />
+                        <input type="text" name="phoneNumber" value="@rider.Phone" placeholder="Phone number" />
+                        <button type="submit" class="btn btn-save">Save</button>
+                    </form>
+
+                    <form id="pw-@rider.Id" class="edit-form" method="post" asp-page-handler="ResetPassword">
+                        <input type="hidden" name="riderId" value="@rider.Id" />
+                        <input type="password" name="newPassword" placeholder="New password (min 8 chars, 1 uppercase, 1 number, 1 symbol)" required minlength="8" />
+                        <button type="submit" class="btn btn-save">Set Password</button>
+                    </form>
+
+                    <div id="hist-@rider.Id" class="history-panel">
+                        @if (!rider.DeliveryHistory.Any())
+                        {
+                            <div class="history-empty">No completed deliveries yet.</div>
+                        }
+                        else
+                        {
+                            @foreach (var h in rider.DeliveryHistory)
+                            {
+                                <div class="history-row">
+                                    <div class="history-main">
+                                        <span class="history-order">#@h.OrderId</span> — @h.CustomerName
+                                        <div class="history-address">@h.DeliveryAddress</div>
+                                    </div>
+                                    <div class="history-side">
+                                        <div class="history-earning">RM@(h.Earning.ToString("0.00"))</div>
+                                        <div class="history-date">@(h.DeliveredAt.HasValue? h.DeliveredAt.Value.ToLocalTime().ToString("d MMM yyyy, h:mm tt") : "—")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

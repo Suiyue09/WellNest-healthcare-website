@@ -1,0 +1,19 @@
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Healthcare Industry.exe
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\appsettings.Development.json
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\appsettings.json
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Healthcare Industry.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Healthcare Industry.runtimeconfig.json
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Healthcare Industry.pdb
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Microsoft.EntityFrameworkCore.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\MySqlConnector.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Newtonsoft.Json.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Npgsql.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Stripe.net.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\System.Configuration.ConfigurationManager.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Itsuki\AppData\Local\Temp\37e92a71-0a7c-4119-85a8-b9f9a6903dd9\Healthcare Industry.deps.json

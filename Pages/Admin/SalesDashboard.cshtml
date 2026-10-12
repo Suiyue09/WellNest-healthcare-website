@@ -1,0 +1,608 @@
+﻿@page
+@model Healthcare_Industry.Pages.Admin.SalesDashboardModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Sales Dashboard";
+    decimal maxTrend = Model.TrendValues.Any() ? Math.Max(Model.TrendValues.Max(), 1) : 1;
+    decimal maxCat = Model.CategoryBreakdown.Any() ? Model.CategoryBreakdown.Max(c => c.Revenue) : 1;
+    int maxStatus = Model.StatusBreakdown.Any() ? Model.StatusBreakdown.Max(s => s.Count) : 1;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WellNest Admin — Sales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f6ff;
+            --card: #fff;
+            --navy: #0d2454;
+            --primary: #1246a0;
+            --accent: #2979ff;
+            --mist: #ddeeff;
+            --pale: #eef6ff;
+            --ink: #08172e;
+            --ink2: #1a3251;
+            --slate: #3a5a80;
+            --steel: #6b8db0;
+            --fog: #a8c4d8;
+            --gold: #c8971e;
+            --coral: #e8524a;
+            --mint: #00a896;
+            --orange: #f97316;
+            --s1: 0 1px 4px rgba(10,31,68,.06),0 2px 8px rgba(10,31,68,.04);
+            --s2: 0 4px 18px rgba(10,31,68,.09),0 1px 4px rgba(10,31,68,.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'DM Sans',sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 15.5px
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--mist);
+            box-shadow: var(--s1);
+            position: sticky;
+            top: 0;
+            z-index: 20
+        }
+
+        .topbar-in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 28px
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .orb {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 19px;
+            box-shadow: 0 4px 12px rgba(41,121,255,.35)
+        }
+
+        .logo .name {
+            font-family: 'Lora',serif;
+            font-weight: 600;
+            font-size: 21px;
+            color: var(--navy)
+        }
+
+            .logo .name span {
+                color: var(--accent)
+            }
+
+        .logo .tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            color: var(--steel);
+            text-transform: uppercase;
+            margin-left: 4px
+        }
+
+        .nav {
+            display: flex;
+            gap: 6px
+        }
+
+            .nav a {
+                padding: 8px 14px;
+                border-radius: 9px;
+                font-weight: 600;
+                font-size: 14.5px;
+                color: var(--slate);
+                transition: .15s
+            }
+
+                .nav a:hover {
+                    background: var(--pale);
+                    color: var(--primary)
+                }
+
+                .nav a.active {
+                    background: linear-gradient(135deg,var(--primary),var(--accent));
+                    color: #fff
+                }
+
+        .logout {
+            margin-left: auto
+        }
+
+            .logout button {
+                font-family: 'DM Sans';
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--slate);
+                background: var(--pale);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 9px;
+                cursor: pointer;
+                transition: .15s
+            }
+
+                .logout button:hover {
+                    background: var(--mist);
+                    color: var(--coral)
+                }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 28px 24px 60px
+        }
+
+        .page-head {
+            margin-bottom: 22px
+        }
+
+            .page-head h1 {
+                font-family: 'Lora',serif;
+                font-style: italic;
+                font-weight: 600;
+                font-size: 30px;
+                color: var(--navy)
+            }
+
+            .page-head p {
+                color: var(--steel);
+                font-size: 14.5px;
+                margin-top: 3px
+            }
+
+        /* stat cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            gap: 16px;
+            margin-bottom: 28px
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            box-shadow: var(--s1);
+            padding: 18px 20px
+        }
+
+            .stat .num {
+                font-family: 'Lora',serif;
+                font-weight: 600;
+                font-size: 27px;
+                color: var(--navy);
+                line-height: 1
+            }
+
+            .stat .lbl {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--steel);
+                margin-top: 6px
+            }
+
+        /* shared card/section */
+        .card {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 16px;
+            box-shadow: var(--s1);
+            padding: 24px 26px;
+            margin-bottom: 22px
+        }
+
+            .card h2 {
+                font-family: 'Lora',serif;
+                font-style: italic;
+                font-weight: 600;
+                font-size: 20px;
+                color: var(--navy);
+                margin-bottom: 18px
+            }
+
+        /* trend bar chart (pure CSS) */
+        .trend {
+            display: flex;
+            align-items: flex-end;
+            gap: 7px;
+            height: 180px;
+            padding-top: 10px
+        }
+
+        .tbar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%
+        }
+
+            .tbar .bar {
+                width: 100%;
+                max-width: 26px;
+                border-radius: 6px 6px 2px 2px;
+                background: linear-gradient(180deg,var(--accent),var(--primary));
+                transition: .2s;
+                position: relative
+            }
+
+                .tbar .bar:hover {
+                    filter: brightness(1.08)
+                }
+
+            .tbar .day {
+                font-size: 10.5px;
+                color: var(--steel);
+                margin-top: 8px;
+                writing-mode: horizontal-tb;
+                white-space: nowrap
+            }
+
+            .tbar .val {
+                font-size: 10px;
+                color: var(--primary);
+                font-weight: 700;
+                margin-bottom: 4px
+            }
+
+        /* two-column layout */
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px
+        }
+
+        /* top products table */
+        .tp-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--mist)
+        }
+
+            .tp-row:last-child {
+                border-bottom: none
+            }
+
+        .tp-rank {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--pale);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 13px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0
+        }
+
+        .tp-name {
+            flex: 1;
+            font-weight: 600;
+            color: var(--ink2);
+            font-size: 14.5px
+        }
+
+        .tp-qty {
+            font-size: 12.5px;
+            color: var(--steel)
+        }
+
+        .tp-rev {
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Lora',serif;
+            white-space: nowrap
+        }
+
+        /* category / status bars */
+        .hbar-row {
+            margin-bottom: 14px
+        }
+
+            .hbar-row:last-child {
+                margin-bottom: 0
+            }
+
+        .hbar-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13.5px;
+            margin-bottom: 6px
+        }
+
+            .hbar-top b {
+                color: var(--ink2);
+                font-weight: 600
+            }
+
+            .hbar-top span {
+                color: var(--primary);
+                font-weight: 700
+            }
+
+        .hbar-track {
+            height: 10px;
+            background: var(--pale);
+            border-radius: 6px;
+            overflow: hidden
+        }
+
+        .hbar-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg,var(--primary),var(--accent))
+        }
+
+        .empty {
+            color: var(--steel);
+            font-size: 14.5px;
+            text-align: center;
+            padding: 30px 0
+        }
+
+
+
+        /* report filters */
+        .filter-card {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            box-shadow: var(--s1);
+            padding: 16px 18px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .filter-fields {
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+            .filter-group label {
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--steel);
+                text-transform: uppercase;
+                letter-spacing: .4px
+            }
+
+            .filter-group select {
+                min-width: 160px;
+                border: 1px solid var(--mist);
+                background: var(--pale);
+                color: var(--ink2);
+                border-radius: 10px;
+                padding: 10px 12px;
+                font-family: 'DM Sans',sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                outline: none
+            }
+
+        .filter-card button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            color: #fff;
+            font-family: 'DM Sans',sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(41,121,255,.22)
+        }
+
+        .filter-note {
+            color: var(--steel);
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        @@media(max-width:820px) {
+            .stats {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .cols {
+                grid-template-columns: 1fr
+            }
+
+            .nav {
+                display: none
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-in">
+            <a class="logo" asp-page="/Admin/Dashboard">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+                <span class="tag">Admin</span>
+            </a>
+            <nav class="nav">
+                <a asp-page="/Admin/Dashboard">Dashboard</a>
+                <a asp-page="/Admin/ProductManagement">Products</a>
+                <a asp-page="/Admin/OrderManagement">Orders</a>
+                <a asp-page="/Admin/SalesDashboard" class="active">Sales</a>
+            </nav>
+            <form class="logout" method="post" asp-page="/Account/Logout">
+                <button type="submit">Log out</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="page-head">
+            <h1>Sales Dashboard</h1>
+            <p>Revenue, trends, and top performers across your store. Current view: @Model.ReportPeriodLabel.</p>
+        </div>
+
+        <form method="get" class="filter-card">
+            <div class="filter-fields">
+                <div class="filter-group">
+                    <label for="period">Report period</label>
+                    <select id="period" name="period">
+                        <option value="today" selected='@(Model.Period == "today")'>Today</option>
+                        <option value="7" selected='@(Model.Period == "7")'>Last 7 days</option>
+                        <option value="14" selected='@(Model.Period == "14" || string.IsNullOrEmpty(Model.Period))'>Last 14 days</option>
+                        <option value="30" selected='@(Model.Period == "30")'>Last 30 days</option>
+                        <option value="all" selected='@(Model.Period == "all")'>All time</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">Top products sort</label>
+                    <select id="sortBy" name="sortBy">
+                        <option value="qty" selected='@(Model.SortBy == "qty" || string.IsNullOrEmpty(Model.SortBy))'>Quantity sold</option>
+                        <option value="revenue" selected='@(Model.SortBy == "revenue")'>Revenue</option>
+                        <option value="name" selected='@(Model.SortBy == "name")'>Product name</option>
+                    </select>
+                </div>
+                <button type="submit">Apply filter</button>
+            </div>
+            <div class="filter-note">Showing @Model.ReportPeriodLabel · Sorted by @Model.TopProductsSortLabel</div>
+        </form>
+
+        <div class="stats">
+            <div class="stat"><div class="num">RM@(Model.TotalRevenue.ToString("0.00"))</div><div class="lbl">Total revenue</div></div>
+            <div class="stat"><div class="num">@Model.TotalOrders</div><div class="lbl">Total orders</div></div>
+            <div class="stat"><div class="num">RM@(Model.AvgOrderValue.ToString("0.00"))</div><div class="lbl">Average order value</div></div>
+            <div class="stat"><div class="num">@Model.CancelledCount</div><div class="lbl">Cancelled orders</div></div>
+            <div class="stat"><div class="num" style="color:var(--gold);">RM@(Model.PendingCodAmount.ToString("0.00"))</div><div class="lbl">Pending COD (uncollected)</div></div>
+        </div>
+
+        <div class="card">
+            <h2>Revenue — @Model.ReportPeriodLabel</h2>
+            @if (Model.TrendValues.All(v => v == 0))
+            {
+                <div class="empty">No revenue recorded for this selected period.</div>
+            }
+            else
+            {
+                <div class="trend">
+                    @for (int i = 0; i < Model.TrendValues.Count; i++)
+                    {
+                        var pct = maxTrend > 0 ? (double)(Model.TrendValues[i] / maxTrend) * 100 : 0;
+                        <div class="tbar">
+                            @if (Model.TrendValues[i] > 0)
+                            {
+                                <div class="val">@(Model.TrendValues[i] >= 100 ? Model.TrendValues[i].ToString("0") : Model.TrendValues[i].ToString("0.0"))</div>
+                            }
+                            <div class="bar" style="height:@(Math.Max(pct, 2))%" title="RM@(Model.TrendValues[i].ToString("0.00")) on @Model.TrendLabels[i]"></div>
+                            <div class="day">@Model.TrendLabels[i]</div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="cols">
+            <div class="card">
+                <h2>Top selling products — @Model.TopProductsSortLabel</h2>
+                @if (!Model.TopProducts.Any())
+                {
+                    <div class="empty">No sales data yet.</div>
+                }
+                else
+                {
+                    @for (int i = 0; i < Model.TopProducts.Count; i++)
+                    {
+                        var p = Model.TopProducts[i];
+                        <div class="tp-row">
+                            <div class="tp-rank">@(i + 1)</div>
+                            <div class="tp-name">@p.Name<div class="tp-qty">@p.Qty sold</div></div>
+                            <div class="tp-rev">RM@(p.Revenue.ToString("0.00"))</div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="card">
+                <h2>Revenue by category</h2>
+                @if (!Model.CategoryBreakdown.Any())
+                {
+                    <div class="empty">No sales data yet.</div>
+                }
+                else
+                {
+                    @foreach (var c in Model.CategoryBreakdown)
+                    {
+                        var pct = maxCat > 0 ? (double)(c.Revenue / maxCat) * 100 : 0;
+                        <div class="hbar-row">
+                            <div class="hbar-top"><b>@c.Category</b><span>RM@(c.Revenue.ToString("0.00"))</span></div>
+                            <div class="hbar-track"><div class="hbar-fill" style="width:@(pct)%"></div></div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Orders by status</h2>
+            @if (!Model.StatusBreakdown.Any())
+            {
+                <div class="empty">No orders yet.</div>
+            }
+            else
+            {
+                @foreach (var s in Model.StatusBreakdown)
+                {
+                    var pct = maxStatus > 0 ? (double)s.Count / maxStatus * 100 : 0;
+                    <div class="hbar-row">
+                        <div class="hbar-top"><b>@s.Status</b><span>@s.Count order@(s.Count == 1 ? "" : "s")</span></div>
+                        <div class="hbar-track"><div class="hbar-fill" style="width:@(pct)%"></div></div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

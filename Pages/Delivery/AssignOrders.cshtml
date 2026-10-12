@@ -1,0 +1,448 @@
+﻿@page
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Delivery.AssignOrdersModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+                    .topbar-nav a.logout:hover {
+                        background: #e8524a22;
+                    }
+
+        .main {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: #0d2454;
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: #fff;
+            border-radius: 14px;
+            padding: 0.4rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.7rem 0.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #6b7a99;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+        }
+
+            .tab:hover {
+                background: #f0f6ff;
+            }
+
+            .tab.active {
+                background: #1246a0;
+                color: #fff;
+            }
+
+            .tab .count {
+                display: inline-block;
+                margin-left: 0.4rem;
+                background: rgba(255,255,255,0.25);
+                padding: 0.05rem 0.5rem;
+                border-radius: 999px;
+                font-size: 0.78rem;
+            }
+
+            .tab:not(.active) .count {
+                background: #eef6ff;
+                color: #1246a0;
+            }
+
+        .parcel-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .parcel-left {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .parcel-id {
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            color: #0d2454;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .parcel-customer {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .parcel-address {
+            color: #6b7a99;
+            font-size: 0.85rem;
+        }
+
+        .parcel-meta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .parcel-total {
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            color: #0d2454;
+            font-size: 1.1rem;
+        }
+
+        .cod-tag {
+            display: inline-block;
+            margin-top: 0.3rem;
+            background: #fff8e1;
+            color: #c8971e;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .earn-tag {
+            display: inline-block;
+            margin-top: 0.3rem;
+            margin-left: 0.4rem;
+            background: #e0f7f4;
+            color: #00a896;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .badge-packed {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .badge-outfordelivery {
+            background: #ddeeff;
+            color: #1246a0;
+        }
+
+        .badge-delivered {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .badge-failed {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .badge-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .badge-shipped {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.55rem 1.3rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.85;
+            }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7a99;
+            background: #fff;
+            border-radius: 16px;
+        }
+
+            .empty-state .emoji {
+                font-size: 3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .empty-state .msg {
+                font-size: 1rem;
+            }
+
+        @@media(max-width: 480px) {
+            .topbar {
+                padding: 0 1rem;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding-top: 0.6rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .topbar-brand .name {
+                display: none;
+            }
+
+            .topbar-nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.6rem;
+                justify-content: flex-start;
+                padding-bottom: 0.3rem;
+            }
+
+                .topbar-nav a {
+                    white-space: nowrap;
+                    font-size: 0.82rem;
+                    padding: 0.3rem 0.6rem;
+                }
+
+            .main {
+                padding: 1.2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .tab {
+                white-space: nowrap;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/AssignOrders">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">@(User.Identity?.Name == "Delivery@wellnest.com" ? "DELIVERY ADMIN" : "RIDER")</span>
+        </div>
+        <div class="topbar-nav">
+            @if (User.Identity?.Name == "Delivery@wellnest.com")
+            {
+                <a href="/Delivery/DeliveryDashboard">Dashboard</a>
+                <a href="/Delivery/Riders">Riders</a>
+            }
+            <a href="/Delivery/AssignOrders" class="active">My Orders</a>
+            <a href="/Delivery/Payout">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="page-title">My Orders</div>
+        <div class="tabs">
+            <a href="?tab=pickup" class="tab @(Model.Tab == "pickup" ? "active" : "")">
+                To Pick Up <span class="count">@Model.ToPickUpCount</span>
+            </a>
+            <a href="?tab=outfordelivery" class="tab @(Model.Tab == "outfordelivery" ? "active" : "")">
+                Out for Delivery <span class="count">@Model.OutForDeliveryCount</span>
+            </a>
+            <a href="?tab=delivered" class="tab @(Model.Tab == "delivered" ? "active" : "")">
+                Delivered <span class="count">@Model.DeliveredCount</span>
+            </a>
+            <a href="?tab=failed" class="tab @(Model.Tab == "failed" ? "active" : "")">
+                Failed <span class="count">@Model.FailedCount</span>
+            </a>
+        </div>
+
+        @if (!Model.Orders.Any())
+        {
+            <div class="empty-state">
+                <div class="emoji">📭</div>
+                <div class="msg">No orders in this category.</div>
+            </div>
+        }
+        else
+        {
+            @foreach (var order in Model.Orders)
+            {
+                <div class="parcel-card">
+                    <div class="parcel-left">
+                        <div class="parcel-id">Order #@order.Id</div>
+                        <div class="parcel-customer">@order.CustomerName</div>
+                        <div class="parcel-address">📍 @order.DeliveryAddress</div>
+                        @if (order.CodAmount > 0)
+                        {
+                            <div class="cod-tag">💰 COD: RM@(order.CodAmount.ToString("0.00"))</div>
+                        }
+                        @if (Model.Tab == "pickup")
+                        {
+                            <div class="earn-tag">💵 Earn RM5.00</div>
+                        }
+                    </div>
+                    <div class="parcel-meta">
+                        <div style="text-align:right;">
+                            <div class="parcel-total">RM@(order.Total.ToString("0.00"))</div>
+                            <span class="status-badge badge-@order.Status.ToString().ToLower()">@order.Status</span>
+                        </div>
+                        <a href="/Delivery/OrderDetails?id=@order.Id" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

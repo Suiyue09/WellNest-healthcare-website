@@ -1,0 +1,321 @@
+﻿@page
+@model Healthcare_Industry.Pages.Account.RegisterModel
+@{
+	Layout = null;
+	ViewData["Title"] = "Create Account";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WellNest — Create Account</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--card: #ffffff;
+			--navy: #0d2454;
+			--primary: #1246a0;
+			--accent: #2979ff;
+			--mist: #ddeeff;
+			--pale: #eef6ff;
+			--ink: #08172e;
+			--ink2: #1a3251;
+			--slate: #3a5a80;
+			--steel: #6b8db0;
+			--coral: #e8524a;
+			--s3: 0 18px 50px rgba(10,31,68,.16),0 2px 8px rgba(10,31,68,.06);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box
+		}
+
+		html {
+			min-height: 100%;
+			background: linear-gradient(135deg,#eef6ff 0%,#ddeeff 55%,#c2deff 100%);
+			background-attachment: fixed;
+		}
+
+		body {
+			font-family: 'DM Sans',sans-serif;
+			color: var(--ink);
+			min-height: 100dvh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 24px;
+			background: transparent;
+			position: relative;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+
+			body::before, body::after {
+				content: "";
+				position: fixed;
+				border-radius: 50%;
+				filter: blur(70px);
+				opacity: .5;
+				z-index: 0
+			}
+
+			body::before {
+				width: 420px;
+				height: 420px;
+				background: #5b9df5;
+				top: -130px;
+				right: -110px
+			}
+
+			body::after {
+				width: 380px;
+				height: 380px;
+				background: #93c4fb;
+				bottom: -130px;
+				left: -90px
+			}
+
+		.card {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			max-width: 480px;
+			background: var(--card);
+			border-radius: 20px;
+			box-shadow: var(--s3);
+			padding: 42px 42px 36px;
+			border: 1px solid rgba(255,255,255,.7);
+			animation: rise .5s cubic-bezier(.2,.8,.2,1);
+		}
+
+		@@keyframes rise {
+			from {
+				opacity: 0;
+				transform: translateY(18px)
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 24px
+		}
+
+		.orb {
+			width: 46px;
+			height: 46px;
+			border-radius: 13px;
+			background: linear-gradient(135deg,var(--primary),var(--accent));
+			display: grid;
+			place-items: center;
+			font-size: 22px;
+			color: #fff;
+			box-shadow: 0 6px 16px rgba(41,121,255,.4);
+			position: relative;
+			overflow: hidden
+		}
+
+			.orb::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(140deg,rgba(255,255,255,.45),transparent 55%)
+			}
+
+		.brand .name {
+			font-family: 'Lora',serif;
+			font-weight: 600;
+			font-size: 24px;
+			color: var(--navy)
+		}
+
+			.brand .name span {
+				color: var(--accent)
+			}
+
+		h1 {
+			font-family: 'Lora',serif;
+			font-style: italic;
+			font-weight: 600;
+			font-size: 28px;
+			color: var(--navy);
+			margin-bottom: 6px
+		}
+
+		.sub {
+			font-size: 15px;
+			color: var(--steel);
+			margin-bottom: 24px
+		}
+
+		.field {
+			margin-bottom: 16px
+		}
+
+			.field label {
+				display: block;
+				font-size: 14px;
+				font-weight: 600;
+				color: var(--slate);
+				margin-bottom: 7px
+			}
+
+				.field label .opt {
+					font-weight: 400;
+					color: var(--steel);
+					font-size: 12.5px
+				}
+
+			.field input[type=text], .field input[type=email], .field input[type=password], .field input[type=tel] {
+				width: 100%;
+				font-family: 'DM Sans';
+				font-size: 16px;
+				color: var(--ink);
+				padding: 13px 16px;
+				border: 1.5px solid var(--mist);
+				border-radius: 11px;
+				background: var(--pale);
+				outline: none;
+				transition: .18s;
+			}
+
+			.field input:focus {
+				border-color: var(--accent);
+				background: #fff;
+				box-shadow: 0 0 0 4px rgba(41,121,255,.13)
+			}
+
+			.field input::placeholder {
+				color: #a8c4d8
+			}
+
+		.val {
+			display: block;
+			color: var(--coral);
+			font-size: 13px;
+			margin-top: 6px
+		}
+
+		.hint {
+			display: block;
+			color: var(--steel);
+			font-size: 12.5px;
+			margin-top: 6px;
+		}
+
+		.staff {
+			margin-top: 20px;
+			padding-top: 18px;
+			border-top: 1px dashed var(--mist)
+		}
+
+		.btn {
+			width: 100%;
+			font-family: 'DM Sans';
+			font-weight: 700;
+			font-size: 16px;
+			color: #fff;
+			padding: 14px;
+			border: none;
+			border-radius: 11px;
+			cursor: pointer;
+			margin-top: 6px;
+			background: linear-gradient(135deg,var(--primary),var(--accent));
+			box-shadow: 0 8px 20px rgba(41,121,255,.32);
+			transition: .2s
+		}
+
+			.btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 12px 26px rgba(41,121,255,.42)
+			}
+
+			.btn:active {
+				transform: translateY(0)
+			}
+
+		.switch {
+			text-align: center;
+			font-size: 14.5px;
+			color: var(--steel);
+			margin-top: 20px
+		}
+
+			.switch a {
+				color: var(--primary);
+				font-weight: 600;
+				text-decoration: none
+			}
+
+				.switch a:hover {
+					text-decoration: underline
+				}
+
+		@@media(max-height:820px) {
+			body {
+				align-items: flex-start;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="card">
+		<div class="brand">
+			<span class="orb">🌿</span>
+			<span class="name">Well<span>Nest</span></span>
+		</div>
+		<h1>Create your account</h1>
+		<p class="sub">Your everyday wellness, beautifully curated.</p>
+		<form method="post">
+			<input type="hidden" asp-for="ReturnUrl" />
+			<div class="field">
+				<label asp-for="Input.FullName">Full name</label>
+				<input asp-for="Input.FullName" placeholder="Jane Doe" />
+				<span asp-validation-for="Input.FullName" class="val"></span>
+			</div>
+			<div class="field">
+				<label asp-for="Input.Email">Email</label>
+				<input asp-for="Input.Email" placeholder="you@example.com" />
+				<span asp-validation-for="Input.Email" class="val"></span>
+			</div>
+			<div class="field">
+				<label asp-for="Input.PhoneNumber">Phone number</label>
+				<input asp-for="Input.PhoneNumber" placeholder="e.g. 012-3456789" />
+				<span asp-validation-for="Input.PhoneNumber" class="val"></span>
+			</div>
+			<div class="field">
+				<label asp-for="Input.Password">Password</label>
+				<input asp-for="Input.Password" placeholder="At least 8 characters" />
+				<span class="hint">Use at least 8 characters with one capital letter, one digit, and one symbol.</span>
+				<span asp-validation-for="Input.Password" class="val"></span>
+			</div>
+			<div class="field">
+				<label asp-for="Input.ConfirmPassword">Confirm password</label>
+				<input asp-for="Input.ConfirmPassword" placeholder="Re-enter your password" />
+				<span asp-validation-for="Input.ConfirmPassword" class="val"></span>
+			</div>
+			<div class="field staff">
+				<label asp-for="Input.AccessCode">Staff access code <span class="opt">— optional, leave blank to register as a customer</span></label>
+				<input asp-for="Input.AccessCode" placeholder="Staff only" />
+				<span asp-validation-for="Input.AccessCode" class="val"></span>
+			</div>
+			<button type="submit" class="btn">Create Account</button>
+		</form>
+		<p class="switch">Already have an account? <a asp-page="/Account/Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in</a></p>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

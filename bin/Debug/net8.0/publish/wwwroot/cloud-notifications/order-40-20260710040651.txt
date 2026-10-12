@@ -1,0 +1,14 @@
+To: harishah.dave@gmail.com
+Subject: Order payment confirmed
+Provider: Demo cloud email provider
+CreatedUtc: 2026-07-10T04:06:51.0887454Z
+
+Hi Lord Sauron,
+
+Payment for order #40 was received.
+
+Delivery address:
+20-1 jalan 14/48A
+Sekinchan
+
+Total: RM 46.00

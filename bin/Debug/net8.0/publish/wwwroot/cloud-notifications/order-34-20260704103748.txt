@@ -1,0 +1,13 @@
+To: customer@gmail.com
+Subject: Order status updated
+Provider: Demo cloud email provider
+CreatedUtc: 2026-07-04T10:37:48.5160960Z
+
+Hi Stevia,
+
+Order #34 is now OutForDelivery.
+
+Delivery address:
+Jalan 3/149e, Taman Sri Endah, Endah Promenade 57000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
+
+Total: RM 185.00

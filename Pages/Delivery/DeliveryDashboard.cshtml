@@ -1,0 +1,634 @@
+﻿@page
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Delivery.DeliveryDashboardModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delivery Dashboard — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+                    .topbar-nav a.logout:hover {
+                        background: #e8524a22;
+                    }
+
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: #0d2454;
+            margin-bottom: 0.3rem;
+        }
+
+        .page-subtitle {
+            color: #6b7a99;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        a.stat-card {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+            a.stat-card:hover {
+                transform: translateY(-2px);
+            }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+            .stat-icon.blue {
+                background: #ddeeff;
+            }
+
+            .stat-icon.orange {
+                background: #fff3e0;
+            }
+
+            .stat-icon.green {
+                background: #e0f7f4;
+            }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6b7a99;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-value {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0d2454;
+        }
+
+            .stat-value.green {
+                color: #00a896;
+            }
+
+        .filter-bar {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+            min-width: 140px;
+        }
+
+            .filter-group label {
+                font-size: 0.78rem;
+                font-weight: 600;
+                color: #6b7a99;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+
+            .filter-group input, .filter-group select {
+                padding: 0.55rem 0.8rem;
+                border: 1.5px solid #ddeeff;
+                border-radius: 8px;
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.9rem;
+                color: #1a1a2e;
+                background: #f8fbff;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+                .filter-group input:focus, .filter-group select:focus {
+                    border-color: #2979ff;
+                    background: #fff;
+                }
+
+        .filter-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+
+        .btn-filter {
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-apply {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-apply:hover {
+                opacity: 0.88;
+            }
+
+        .btn-clear {
+            background: #eef6ff;
+            color: #1246a0;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .btn-clear:hover {
+                background: #ddeeff;
+            }
+
+        .filter-result {
+            font-size: 0.85rem;
+            color: #6b7a99;
+            margin-bottom: 0.8rem;
+        }
+
+            .filter-result span {
+                font-weight: 700;
+                color: #1246a0;
+            }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            color: #0d2454;
+            margin-bottom: 0.8rem;
+        }
+
+        .orders-table {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+            overflow: hidden;
+        }
+
+            .orders-table table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .orders-table th {
+                background: #f0f6ff;
+                padding: 0.9rem 1.2rem;
+                text-align: left;
+                font-size: 0.8rem;
+                color: #6b7a99;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .orders-table td {
+                padding: 1rem 1.2rem;
+                border-top: 1px solid #eef6ff;
+                font-size: 0.9rem;
+            }
+
+            .orders-table tr:hover td {
+                background: #f8fbff;
+            }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .badge-packed {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .badge-outfordelivery {
+            background: #ddeeff;
+            color: #1246a0;
+        }
+
+        .badge-delivered {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .badge-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .badge-cancelled {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .badge-failed {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .badge-shipped {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.85;
+            }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7a99;
+        }
+
+            .empty-state .emoji {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+        @@media(max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+
+        @@media(max-width: 480px) {
+            .topbar {
+                padding: 0 1rem;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding-top: 0.6rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .topbar-brand .name {
+                display: none;
+            }
+
+            .topbar-nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.6rem;
+                justify-content: flex-start;
+                padding-bottom: 0.3rem;
+            }
+
+                .topbar-nav a {
+                    white-space: nowrap;
+                    font-size: 0.82rem;
+                    padding: 0.3rem 0.6rem;
+                }
+
+            .main {
+                padding: 1.2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .orders-table {
+                overflow-x: auto;
+            }
+
+                .orders-table table {
+                    min-width: 600px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/DeliveryDashboard">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">DELIVERY ADMIN</span>
+        </div>
+        <div class="topbar-nav">
+            <a href="/Delivery/DeliveryDashboard" class="active">Dashboard</a>
+            <a href="/Delivery/AssignOrders">My Orders</a>
+            <a href="/Delivery/Riders">Riders</a>
+            <a href="/Delivery/Payout">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="page-title">Good day 👋</div>
+        <div class="page-subtitle">Here's the delivery overview.</div>
+
+        <!-- STAT CARDS -->
+        <div class="stats-grid">
+            <a href="/Delivery/AssignOrders?tab=pickup" class="stat-card">
+                <div class="stat-icon blue">📦</div>
+                <div>
+                    <div class="stat-label">To Pick Up</div>
+                    <div class="stat-value">@Model.ToPickUpCount</div>
+                </div>
+            </a>
+            <a href="/Delivery/AssignOrders?tab=outfordelivery" class="stat-card">
+                <div class="stat-icon orange">🚚</div>
+                <div>
+                    <div class="stat-label">Out for Delivery</div>
+                    <div class="stat-value">@Model.OutForDeliveryCount</div>
+                </div>
+            </a>
+            <a href="/Delivery/AssignOrders?tab=delivered" class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <div>
+                    <div class="stat-label">Total Delivered</div>
+                    <div class="stat-value green">@Model.DeliveredTodayCount</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- RECENT ORDERS -->
+        <div class="section-title">Recent Orders</div>
+
+        <!-- FILTER BAR -->
+        <form method="get" class="filter-bar">
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" name="Search" value="@Model.Search" placeholder="Order ID or customer name" />
+            </div>
+            <div class="filter-group">
+                <label>Status</label>
+                <select name="StatusFilter">
+                    <option value="">All Statuses</option>
+                    @foreach (var s in Enum.GetValues<OrderStatus>())
+                    {
+                        <option value="@s" selected="@(Model.StatusFilter == s.ToString() ? "selected" : null)">@s</option>
+                    }
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Rider</label>
+                <select name="AssignedFilter">
+                    <option value="">All Orders</option>
+                    <option value="assigned" selected="@(Model.AssignedFilter == "assigned" ? "selected" : null)">Assigned</option>
+                    <option value="unassigned" selected="@(Model.AssignedFilter == "unassigned" ? "selected" : null)">Not Assigned</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>From Date</label>
+                <input type="date" name="FromDate" value="@(Model.FromDate?.ToString("yyyy-MM-dd"))" />
+            </div>
+            <div class="filter-group">
+                <label>To Date</label>
+                <input type="date" name="ToDate" value="@(Model.ToDate?.ToString("yyyy-MM-dd"))" />
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn-filter btn-apply">Apply</button>
+                <a href="/Delivery/DeliveryDashboard" class="btn-filter btn-clear">Clear</a>
+            </div>
+        </form>
+
+        @if (Model.Search != null || Model.StatusFilter != null || Model.AssignedFilter != null || Model.FromDate != null || Model.ToDate != null)
+        {
+            <div class="filter-result">Showing <span>@Model.TotalFilteredCount</span> order@(Model.TotalFilteredCount == 1 ? "" : "s") matching your filters</div>
+        }
+
+        <div class="orders-table">
+            @if (!Model.RecentOrders.Any())
+            {
+                <div class="empty-state">
+                    <div class="emoji">📭</div>
+                    <div>No orders found.</div>
+                </div>
+            }
+            else
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Address</th>
+                            <th>Total</th>
+                            <th>Earning</th>
+                            <th>Rider</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td><strong>#@order.Id</strong></td>
+                                <td style="white-space:nowrap;color:#6b7a99;font-size:0.85rem;">@order.OrderDate.ToLocalTime().ToString("d MMM, h:mm tt")</td>
+                                <td>@order.CustomerName</td>
+                                <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">@order.DeliveryAddress</td>
+                                <td>RM@(order.Total.ToString("0.00"))</td>
+                                <td>
+                                    @if (order.DeliveryEarning > 0)
+                                    {
+                                        <span style="color:#00a896;font-weight:700;">RM@(order.DeliveryEarning.ToString("0.00"))</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:#a0acc4;">—</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(order.AssignedDeliveryId))
+                                    {
+                                        <span style="color:#1246a0;font-weight:600;font-size:0.82rem;">
+                                            @(Model.RiderNames.TryGetValue(order.AssignedDeliveryId!, out var riderName) ? riderName : "Unknown rider")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:#a0acc4;font-size:0.82rem;">Unassigned</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="status-badge badge-@order.Status.ToString().ToLower()">@order.Status</span>
+                                </td>
+                                <td>
+                                    <a href="/Delivery/OrderDetails?id=@order.Id" class="btn btn-primary">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

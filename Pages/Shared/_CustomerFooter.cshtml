@@ -1,0 +1,48 @@
+<footer class="site-footer">
+    <div class="foot-in">
+        <div class="foot-brand">
+            <div class="fname"><span class="brand-leaf">🌿</span>Well <span>Nest</span></div>
+            <p class="foot-text">Your everyday wellness, beautifully curated. Trusted products for supplements, skincare, baby care and home health, delivered across Malaysia.</p>
+            <div class="foot-socials" aria-label="WellNest contact channels">
+                <a href="mailto:care@wellnest.local" aria-label="Email WellNest">✉</a>
+                <a href="tel:+60322018899" aria-label="Call WellNest">☎</a>
+                <a asp-page="/Customer/Profile" aria-label="Open profile">●</a>
+            </div>
+        </div>
+
+        <div class="foot-links">
+            <div class="foot-title">Shop</div>
+            <a asp-page="/Customer/HomePage" asp-route-category="Supplements">Supplements</a>
+            <a asp-page="/Customer/HomePage" asp-route-category="Beauty">Beauty</a>
+            <a asp-page="/Customer/HomePage" asp-route-category="BabyCare">Baby Care</a>
+            <a asp-page="/Customer/HomePage" asp-route-category="HealthDevices">Health Devices</a>
+        </div>
+
+        <div class="foot-links">
+            <div class="foot-title">Account</div>
+            <a asp-page="/Customer/Profile">My profile</a>
+            <a asp-page="/Customer/History">Order history</a>
+            <a asp-page="/Customer/ShoppingCart">My cart</a>
+        </div>
+
+        <div class="foot-map">
+            <div class="foot-title">Visit Us</div>
+            <div class="foot-text foot-address">
+                WellNest HQ<br />
+                Bukit Jalil, Kuala Lumpur, Malaysia
+            </div>
+            <a class="map-frame" href="https://www.google.com/maps/search/?api=1&query=Bukit+Jalil+Kuala+Lumpur+Malaysia" target="_blank" rel="noopener" aria-label="Open WellNest location in Google Maps">
+                <iframe
+                    title="WellNest map"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Bukit%20Jalil%20Kuala%20Lumpur&output=embed"></iframe>
+            </a>
+            <a class="directions-link" href="https://www.google.com/maps/dir/?api=1&destination=Bukit+Jalil+Kuala+Lumpur+Malaysia" target="_blank" rel="noopener">Get directions →</a>
+        </div>
+    </div>
+    <div class="foot-bottom">
+        <span>© 2026 WellNest. All rights reserved.</span>
+        <span>Your everyday wellness, beautifully curated.</span>
+    </div>
+</footer>

@@ -1,0 +1,486 @@
+﻿@page
+@model Healthcare_Industry.Pages.Delivery.UpdateStatusModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Status — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+        .main {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #1246a0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.6rem;
+            color: #0d2454;
+            margin-bottom: 0.3rem;
+        }
+
+        .page-subtitle {
+            color: #6b7a99;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+        }
+
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-id {
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0d2454;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .badge-packed {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .badge-outfordelivery {
+            background: #ddeeff;
+            color: #1246a0;
+        }
+
+        .badge-delivered {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .badge-failed {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .order-meta {
+            color: #6b7a99;
+            font-size: 0.88rem;
+        }
+
+        .cod-box {
+            background: #fff8e1;
+            border: 1px solid #f5e0a3;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+            .cod-box input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                accent-color: #c8971e;
+                cursor: pointer;
+            }
+
+            .cod-box label {
+                font-weight: 600;
+                color: #8a6d1e;
+                font-size: 0.92rem;
+                cursor: pointer;
+                flex: 1;
+            }
+
+        .next-step-card {
+            background: #f0f6ff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .next-step-label {
+            font-size: 0.82rem;
+            color: #6b7a99;
+            margin-bottom: 0.3rem;
+        }
+
+        .next-step-value {
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #1246a0;
+        }
+
+        .proof-box {
+            background: #f0f6ff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .proof-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #6b7a99;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .proof-input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ddeeff;
+            border-radius: 10px;
+            background: #fff;
+            margin-bottom: 0.8rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 0.8rem;
+            text-align: center;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.88;
+            }
+
+        .btn-danger-outline {
+            background: #fff;
+            color: #e8524a;
+            border: 2px solid #fee2e2;
+        }
+
+            .btn-danger-outline:hover {
+                background: #fee2e2;
+            }
+
+        .fail-section {
+            display: none;
+            margin-top: 1rem;
+        }
+
+            .fail-section.open {
+                display: block;
+            }
+
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid #ddeeff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 0.8rem;
+        }
+
+        .done-message {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7a99;
+        }
+
+        @@media(max-width: 480px) {
+            .topbar {
+                padding: 0 1rem;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding-top: 0.6rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .topbar-brand .name {
+                display: none;
+            }
+
+            .topbar-nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.6rem;
+                justify-content: flex-start;
+                padding-bottom: 0.3rem;
+            }
+
+                .topbar-nav a {
+                    white-space: nowrap;
+                    font-size: 0.82rem;
+                    padding: 0.3rem 0.6rem;
+                }
+
+            .main {
+                padding: 1.2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/AssignOrders">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">@(User.IsDeliveryAdmin() ? "DELIVERY ADMIN" : "RIDER")</span>
+        </div>
+        <div class="topbar-nav">
+            @if (User.IsDeliveryAdmin())
+            {
+                <a href="/Delivery/DeliveryDashboard">Dashboard</a>
+                <a href="/Delivery/Riders">Riders</a>
+            }
+            <a href="/Delivery/AssignOrders" class="active">My Orders</a>
+            <a href="/Delivery/Payout">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <a href="/Delivery/OrderDetails?id=@Model.Order!.Id" class="back-link">← Back to Order Details</a>
+        <div class="page-title">Update Delivery Status</div>
+        <div class="page-subtitle">Order #@Model.Order.Id — @Model.Order.CustomerName</div>
+
+        <div class="card">
+            <div class="order-summary">
+                <span class="order-id">Current Status</span>
+                <span class="status-badge badge-@Model.Order.Status.ToString().ToLower()">@Model.Order.Status</span>
+            </div>
+            <div class="order-meta">📍 @Model.Order.DeliveryAddress</div>
+
+            @if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Delivered)
+            {
+                <div class="done-message">
+                    ✅ This order has already been delivered@(Model.Order.DeliveredAt.HasValue ? $" on {Model.Order.DeliveredAt.Value.ToLocalTime():dd MMM yyyy, h:mm tt}" : "").
+                    @if (!string.IsNullOrEmpty(Model.Order.DeliveryNote))
+                    {
+                        <div style="margin-top:0.5rem;">📝 @Model.Order.DeliveryNote</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Order.DeliveryProofImageUrl))
+                    {
+                        <div style="margin-top:0.8rem;">
+                            <img src="@Model.Order.DeliveryProofImageUrl" style="max-width:100%;border-radius:10px;border:1px solid #ddeeff;" alt="Proof" />
+                        </div>
+                    }
+                </div>
+            }
+            else if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Failed)
+            {
+                <div class="done-message">
+                    ❌ This delivery was marked as failed.
+                    @if (!string.IsNullOrEmpty(Model.Order.DeliveryNote))
+                    {
+                        <div style="margin-top:0.5rem;"><strong>Reason:</strong> @Model.Order.DeliveryNote</div>
+                    }
+                </div>
+            }
+            else
+            {
+                @if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.OutForDelivery && Model.Order.CodAmount > 0)
+                {
+                    <div class="cod-box">
+                        <input type="checkbox" id="codCheck" name="CodCollected" value="true" @(Model.CodCollected ? "checked" : "") form="advanceForm" />
+                        <label for="codCheck">💰 COD Collected — RM@(Model.Order.CodAmount.ToString("0.00"))</label>
+                    </div>
+                }
+
+                <div class="next-step-card">
+                    <div class="next-step-label">Next Step</div>
+                    <div class="next-step-value">
+                        @{
+                            var nextStep = Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Pending ? "Packed" :
+                            Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Packed ? "Out for Delivery" :
+                            "Delivered";
+                        }
+                        @nextStep
+                    </div>
+                </div>
+
+                <form id="advanceForm" method="post" asp-page-handler="Advance" asp-route-id="@Model.Order.Id" enctype="multipart/form-data">
+                    @if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.OutForDelivery)
+                    {
+                        <div class="proof-box">
+                            <label class="proof-label">📸 Proof of Delivery (photo)</label>
+                            <input type="file" name="ProofImage" accept="image/*" class="proof-input" />
+                            <label class="proof-label">📝 Delivery note (optional)</label>
+                            <textarea name="ProofNote" placeholder="e.g. Left at door, recipient confirmed..."></textarea>
+                        </div>
+                    }
+                    @{
+                        var btnText = Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Pending ? "Mark as Packed" :
+                        Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Packed ? "Mark as Out for Delivery" :
+                        "Mark as Delivered ✓";
+                    }
+                    <button type="submit" class="btn btn-primary">@btnText</button>
+                </form>
+
+                <button type="button" class="btn btn-danger-outline" onclick="document.getElementById('failBox').classList.toggle('open')">
+                    Mark as Failed Instead
+                </button>
+                <div id="failBox" class="fail-section">
+                    <form method="post" asp-page-handler="Fail" asp-route-id="@Model.Order.Id">
+                        <textarea name="FailedReason" placeholder="Reason for failed delivery..." required></textarea>
+                        <button type="submit" class="btn" style="background:#e8524a;color:#fff;">Confirm Failed Delivery</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

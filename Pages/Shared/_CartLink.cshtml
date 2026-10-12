@@ -1,0 +1,36 @@
+@using Healthcare_Industry.Data
+@using Microsoft.EntityFrameworkCore
+@using System.Security.Claims
+@inject ApplicationDbContext Db
+@model string
+@{
+    var className = string.IsNullOrWhiteSpace(Model) ? "icon-link" : Model;
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var cartCount = 0;
+
+    if (User.Identity?.IsAuthenticated == true && !string.IsNullOrWhiteSpace(userId))
+    {
+        cartCount = await Db.CartItems
+            .Where(c => c.UserId == userId)
+            .CountAsync();
+    }
+
+    var badgeText = cartCount > 99 ? "99+" : cartCount.ToString();
+}
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <a class="@className" asp-page="/Customer/ShoppingCart" title="Cart" aria-label="Cart with @cartCount item@(cartCount == 1 ? "" : "s")">
+        🛒
+        @if (cartCount > 0)
+        {
+            <span class="cart-count-badge">@badgeText</span>
+        }
+    </a>
+}
+else
+{
+    <button class="@className" type="button" data-guest-auth-open title="Cart" aria-label="Sign in to view cart">
+    🛒
+    </button>
+}

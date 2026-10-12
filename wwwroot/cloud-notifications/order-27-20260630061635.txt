@@ -1,0 +1,14 @@
+To: customer@gmail.com
+Subject: Order payment confirmed
+Provider: Demo cloud email provider
+CreatedUtc: 2026-06-30T06:16:35.6893583Z
+
+Hi Stevia,
+
+Payment for order #27 was received.
+
+Delivery address:
+Jalan 3/149e, Taman Sri Endah, Endah Promenade 57000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
+Jalan 3/149e, Taman Sri Endah, Endah Promenade 57000 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur
+
+Total: RM 185.00

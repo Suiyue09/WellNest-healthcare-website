@@ -1,0 +1,496 @@
+﻿@page
+@model Healthcare_Industry.Pages.Delivery.OrderDetailsModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+        .main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #1246a0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.6rem;
+            color: #0d2454;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+        }
+
+        .card-title {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            color: #0d2454;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eef6ff;
+            font-size: 0.92rem;
+        }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
+        .info-label {
+            color: #6b7a99;
+        }
+
+        .info-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .badge-packed {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .badge-shipped {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .badge-outfordelivery {
+            background: #ddeeff;
+            color: #1246a0;
+        }
+
+        .badge-delivered {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .badge-cancelled {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .badge-failed {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ddeeff;
+            color: #1246a0;
+            padding: 0.7rem 1.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.6rem;
+            transition: opacity 0.2s;
+        }
+
+            .map-link:hover {
+                opacity: 0.8;
+            }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #eef6ff;
+            font-size: 0.9rem;
+        }
+
+            .item-row:last-child {
+                border-bottom: none;
+            }
+
+        .item-name {
+            font-weight: 600;
+        }
+
+        .item-qty {
+            color: #6b7a99;
+            font-size: 0.85rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #0d2454;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 0.8rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid #0d2454;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0d2454;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-step {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+            .timeline-step:last-child {
+                padding-bottom: 0;
+            }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2rem;
+            top: 0.1rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ddeeff;
+            border: 3px solid #1246a0;
+        }
+
+        .timeline-step.done .timeline-dot {
+            background: #1246a0;
+        }
+
+        .timeline-step.current .timeline-dot {
+            background: #2979ff;
+            border-color: #2979ff;
+            box-shadow: 0 0 0 4px #ddeeff;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: -1.56rem;
+            top: 1.1rem;
+            width: 2px;
+            height: calc(100% - 0.5rem);
+            background: #ddeeff;
+        }
+
+        .timeline-step.done .timeline-line {
+            background: #1246a0;
+        }
+
+        .timeline-step:last-child .timeline-line {
+            display: none;
+        }
+
+        .timeline-label {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #1a1a2e;
+        }
+
+        .timeline-step:not(.done):not(.current) .timeline-label {
+            color: #a0acc4;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #1246a0;
+            color: #fff;
+            width: 100%;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.88;
+            }
+
+        @@media(max-width: 480px) {
+            .topbar {
+                padding: 0 1rem;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding-top: 0.6rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .topbar-brand .name {
+                display: none;
+            }
+
+            .topbar-nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.6rem;
+                justify-content: flex-start;
+                padding-bottom: 0.3rem;
+            }
+
+                .topbar-nav a {
+                    white-space: nowrap;
+                    font-size: 0.82rem;
+                    padding: 0.3rem 0.6rem;
+                }
+
+            .main {
+                padding: 1.2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/AssignOrders">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">@(User.IsDeliveryAdmin() ? "DELIVERY ADMIN" : "RIDER")</span>
+        </div>
+        <div class="topbar-nav">
+            @if (User.IsDeliveryAdmin())
+            {
+                <a href="/Delivery/DeliveryDashboard">Dashboard</a>
+                <a href="/Delivery/Riders">Riders</a>
+            }
+            <a href="/Delivery/AssignOrders" class="active">My Orders</a>
+            <a href="/Delivery/Payout">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <a href="/Delivery/AssignOrders" class="back-link">← Back to My Orders</a>
+        <div class="page-title">Order #@Model.Order!.Id</div>
+
+        <div class="card">
+            <div class="card-title">📦 Delivery Info</div>
+            <div class="info-row">
+                <span class="info-label">Customer</span>
+                <span class="info-value">@Model.Order.CustomerName</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Address</span>
+                <span class="info-value">@Model.Order.DeliveryAddress</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status</span>
+                <span class="status-badge badge-@Model.Order.Status.ToString().ToLower()">@Model.Order.Status</span>
+            </div>
+            @if (Model.Order.CodAmount > 0)
+            {
+                <div class="info-row">
+                    <span class="info-label">COD Amount</span>
+                    <span class="info-value">RM@(Model.Order.CodAmount.ToString("0.00")) @(Model.Order.IsCodCollected ? "(Collected ✅)" : "(Pending)")</span>
+                </div>
+            }
+            <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=@Uri.EscapeDataString(Model.Order.DeliveryAddress)" target="_blank">
+                🗺️ Open in Google Maps
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🚚 Tracking</div>
+            @{
+                var steps = new[] { "Pending", "Packed", "OutForDelivery", "Delivered" };
+                var currentIndex = Array.IndexOf(steps, Model.Order.Status.ToString());
+                if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Failed) currentIndex = -1;
+            }
+            <div class="timeline">
+                @for (int i = 0; i < steps.Length; i++)
+                {
+                    var stepClass = i < currentIndex ? "done" : (i == currentIndex ? "current" : "");
+                    <div class="timeline-step @stepClass">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-label">@steps[i]</div>
+                    </div>
+                }
+                @if (Model.Order.Status == Healthcare_Industry.Models.OrderStatus.Failed)
+                {
+                    <div class="timeline-step current">
+                        <div class="timeline-dot" style="background:#e8524a; border-color:#e8524a;"></div>
+                        <div class="timeline-label" style="color:#e8524a;">Failed</div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🛒 Items</div>
+            @foreach (var item in Model.Items)
+            {
+                <div class="item-row">
+                    <div>
+                        <div class="item-name">@item.ProductName</div>
+                        <div class="item-qty">Qty: @item.Quantity</div>
+                    </div>
+                    <div class="item-price">RM@((item.UnitPrice * item.Quantity).ToString("0.00"))</div>
+                </div>
+            }
+            <div class="total-row">
+                <span>Total</span>
+                <span>RM@(Model.Order.Total.ToString("0.00"))</span>
+            </div>
+        </div>
+
+        <a href="/Delivery/UpdateStatus?id=@Model.Order.Id" class="btn btn-primary">Update Delivery Status →</a>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

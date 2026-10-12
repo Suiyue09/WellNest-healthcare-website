@@ -1,0 +1,553 @@
+@page
+@using Healthcare_Industry.Models
+@using Healthcare_Industry.Pages.Delivery
+@model Healthcare_Industry.Pages.Admin.ProductManagementModel
+@{
+	Layout = null;
+	ViewData["Title"] = "Product Management";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WellNest Admin — Products</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #f0f6ff;
+			--card: #fff;
+			--navy: #0d2454;
+			--primary: #1246a0;
+			--accent: #2979ff;
+			--mist: #ddeeff;
+			--pale: #eef6ff;
+			--ink: #08172e;
+			--ink2: #1a3251;
+			--slate: #3a5a80;
+			--steel: #6b8db0;
+			--gold: #c8971e;
+			--coral: #e8524a;
+			--mint: #00a896;
+			--orange: #f97316;
+			--s1: 0 1px 4px rgba(10,31,68,.06),0 2px 8px rgba(10,31,68,.04);
+			--s2: 0 4px 18px rgba(10,31,68,.09),0 1px 4px rgba(10,31,68,.05);
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box
+		}
+
+		body {
+			font-family: 'DM Sans',sans-serif;
+			background: var(--bg);
+			color: var(--ink);
+			font-size: 15.5px
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit
+		}
+
+		.topbar {
+			background: #fff;
+			border-bottom: 1px solid var(--mist);
+			box-shadow: var(--s1);
+			position: sticky;
+			top: 0;
+			z-index: 20
+		}
+
+		.topbar-in {
+			max-width: 1180px;
+			margin: 0 auto;
+			padding: 14px 24px;
+			display: flex;
+			align-items: center;
+			gap: 28px
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 10px
+		}
+
+		.orb {
+			width: 38px;
+			height: 38px;
+			border-radius: 11px;
+			background: linear-gradient(135deg,var(--primary),var(--accent));
+			display: grid;
+			place-items: center;
+			color: #fff;
+			font-size: 19px;
+			box-shadow: 0 4px 12px rgba(41,121,255,.35)
+		}
+
+		.logo .name {
+			font-family: 'Lora',serif;
+			font-weight: 600;
+			font-size: 21px;
+			color: var(--navy)
+		}
+
+			.logo .name span {
+				color: var(--accent)
+			}
+
+		.logo .tag {
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: .5px;
+			color: var(--steel);
+			text-transform: uppercase;
+			margin-left: 4px
+		}
+
+		.nav {
+			display: flex;
+			gap: 6px
+		}
+
+			.nav a {
+				padding: 8px 14px;
+				border-radius: 9px;
+				font-weight: 600;
+				font-size: 14.5px;
+				color: var(--slate);
+				transition: .15s
+			}
+
+				.nav a:hover {
+					background: var(--pale);
+					color: var(--primary)
+				}
+
+				.nav a.active {
+					background: linear-gradient(135deg,var(--primary),var(--accent));
+					color: #fff
+				}
+
+		.logout {
+			margin-left: auto
+		}
+
+			.logout button {
+				font-family: 'DM Sans';
+				font-weight: 600;
+				font-size: 14px;
+				color: var(--slate);
+				background: var(--pale);
+				border: none;
+				padding: 8px 16px;
+				border-radius: 9px;
+				cursor: pointer;
+				transition: .15s
+			}
+
+				.logout button:hover {
+					background: var(--mist);
+					color: var(--coral)
+				}
+
+		.wrap {
+			max-width: 1180px;
+			margin: 0 auto;
+			padding: 28px 24px 60px
+		}
+
+		.page-head {
+			margin-bottom: 22px
+		}
+
+			.page-head h1 {
+				font-family: 'Lora',serif;
+				font-style: italic;
+				font-weight: 600;
+				font-size: 30px;
+				color: var(--navy)
+			}
+
+			.page-head p {
+				color: var(--steel);
+				font-size: 14.5px;
+				margin-top: 3px
+			}
+
+		.card {
+			background: var(--card);
+			border-radius: 16px;
+			box-shadow: var(--s2);
+			border: 1px solid var(--mist);
+			padding: 24px 26px;
+			margin-bottom: 26px
+		}
+
+			.card h2 {
+				font-family: 'Lora',serif;
+				font-style: italic;
+				font-weight: 600;
+				font-size: 21px;
+				color: var(--navy);
+				margin-bottom: 18px
+			}
+
+		.grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px 20px
+		}
+
+		.fld {
+			display: flex;
+			flex-direction: column
+		}
+
+			.fld.full {
+				grid-column: 1 / -1
+			}
+
+			.fld label {
+				font-size: 13.5px;
+				font-weight: 600;
+				color: var(--slate);
+				margin-bottom: 6px
+			}
+
+			.fld input, .fld select, .fld textarea {
+				font-family: 'DM Sans';
+				font-size: 15px;
+				color: var(--ink);
+				padding: 11px 13px;
+				border: 1.5px solid var(--mist);
+				border-radius: 10px;
+				background: var(--pale);
+				outline: none;
+				transition: .15s
+			}
+
+				.fld input:focus, .fld select:focus, .fld textarea:focus {
+					border-color: var(--accent);
+					background: #fff;
+					box-shadow: 0 0 0 3px rgba(41,121,255,.12)
+				}
+
+			.fld textarea {
+				resize: vertical;
+				min-height: 70px
+			}
+
+		.val {
+			color: var(--coral);
+			font-size: 12.5px;
+			margin-top: 5px
+		}
+
+		.actions {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			margin-top: 20px
+		}
+
+		.btn {
+			font-family: 'DM Sans';
+			font-weight: 700;
+			font-size: 15px;
+			padding: 12px 24px;
+			border: none;
+			border-radius: 10px;
+			cursor: pointer;
+			transition: .18s
+		}
+
+		.btn-primary {
+			background: linear-gradient(135deg,var(--primary),var(--accent));
+			color: #fff;
+			box-shadow: 0 6px 16px rgba(41,121,255,.3)
+		}
+
+			.btn-primary:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 10px 22px rgba(41,121,255,.4)
+			}
+
+		.btn-cancel {
+			background: var(--pale);
+			color: var(--slate);
+			padding: 12px 20px;
+			border-radius: 10px;
+			font-weight: 600
+		}
+
+		.tbl {
+			width: 100%;
+			border-collapse: collapse
+		}
+
+			.tbl th {
+				text-align: left;
+				font-size: 12px;
+				text-transform: uppercase;
+				letter-spacing: .5px;
+				color: var(--steel);
+				font-weight: 700;
+				padding: 0 14px 12px
+			}
+
+			.tbl td {
+				padding: 14px;
+				border-top: 1px solid var(--mist);
+				font-size: 14.5px;
+				color: var(--ink2);
+				vertical-align: middle
+			}
+
+			.tbl tr:hover td {
+				background: var(--pale)
+			}
+
+		.pname {
+			font-weight: 600;
+			color: var(--ink)
+		}
+
+		.price {
+			font-weight: 600;
+			color: var(--primary)
+		}
+
+		.lab {
+			font-size: 11px;
+			font-weight: 700;
+			color: #fff;
+			padding: 3px 9px;
+			border-radius: 6px;
+			white-space: nowrap
+		}
+
+		.lab-NewArrival {
+			background: var(--primary)
+		}
+
+		.lab-Bestseller {
+			background: var(--gold)
+		}
+
+		.lab-Buy1Free1 {
+			background: #059669
+		}
+
+		.lab-ThirtyOff {
+			background: #dc2626
+		}
+
+		.lab-OnSale {
+			background: var(--orange)
+		}
+
+		.lab-None {
+			background: #c2deff;
+			color: var(--slate)
+		}
+
+		.stock-low {
+			color: var(--orange);
+			font-weight: 700
+		}
+
+		.row-actions {
+			display: flex;
+			gap: 8px
+		}
+
+			.row-actions a, .row-actions button {
+				font-size: 13px;
+				font-weight: 600;
+				padding: 7px 13px;
+				border-radius: 8px;
+				border: none;
+				cursor: pointer;
+				font-family: 'DM Sans'
+			}
+
+		.edit {
+			background: var(--pale);
+			color: var(--primary)
+		}
+
+			.edit:hover {
+				background: var(--mist)
+			}
+
+		.del {
+			background: #fdecea;
+			color: #c0271e
+		}
+
+			.del:hover {
+				background: #f8d4d0
+			}
+
+		.empty {
+			text-align: center;
+			color: var(--steel);
+			padding: 40px;
+			font-size: 15px
+		}
+
+		@@media(max-width:720px) {
+			.grid {
+				grid-template-columns: 1fr
+			}
+
+			.nav {
+				display: none
+			}
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="topbar-in">
+			<a class="logo" asp-page="/Admin/Dashboard">
+				<span class="orb">🌿</span>
+				<span class="name">Well<span>Nest</span></span>
+				<span class="tag">Admin</span>
+			</a>
+			<nav class="nav">
+				<a asp-page="/Admin/Dashboard">Dashboard</a>
+				<a asp-page="/Admin/ProductManagement" class="active">Products</a>
+				<a asp-page="/Admin/OrderManagement">Orders</a>
+				<a asp-page="/Admin/SalesDashboard">Sales</a>
+			</nav>
+			<form class="logout" method="post" asp-page="/Account/Logout">
+				<button type="submit">Log out</button>
+			</form>
+		</div>
+	</header>
+
+	<div class="wrap">
+		<div class="page-head">
+			<h1>Product Management</h1>
+			<p>Add, edit, and remove products in your catalogue.</p>
+		</div>
+
+		<div class="card">
+			<h2>@(Model.IsEditing ? "Edit Product" : "Add New Product")</h2>
+            <form method="post" asp-page-handler="Save" enctype="multipart/form-data">
+				<input type="hidden" asp-for="Input.Id" />
+				<div class="grid">
+					<div class="fld">
+						<label asp-for="Input.Name">Product name</label>
+						<input asp-for="Input.Name" placeholder="e.g. Vitamin C 1000mg" />
+						<span asp-validation-for="Input.Name" class="val"></span>
+					</div>
+					<div class="fld">
+						<label asp-for="Input.Brand">Brand</label>
+						<input asp-for="Input.Brand" placeholder="e.g. WellNest Labs" />
+						<span asp-validation-for="Input.Brand" class="val"></span>
+					</div>
+					<div class="fld">
+						<label asp-for="Input.Category">Category</label>
+						<select asp-for="Input.Category" asp-items="Html.GetEnumSelectList<ProductCategory>()"></select>
+					</div>
+					<div class="fld">
+						<label asp-for="Input.Label">Label</label>
+						<select asp-for="Input.Label" asp-items="Html.GetEnumSelectList<ProductLabel>()"></select>
+					</div>
+					<div class="fld">
+						<label asp-for="Input.Price">Price (RM)</label>
+						<input asp-for="Input.Price" type="number" step="0.01" placeholder="0.00" />
+						<span asp-validation-for="Input.Price" class="val"></span>
+					</div>
+					<div class="fld">
+						<label asp-for="Input.OldPrice">Old price (RM) — optional</label>
+						<input asp-for="Input.OldPrice" type="number" step="0.01" placeholder="0.00" />
+					</div>
+					<div class="fld">
+						<label asp-for="Input.Stock">Stock quantity</label>
+						<input asp-for="Input.Stock" type="number" placeholder="0" />
+						<span asp-validation-for="Input.Stock" class="val"></span>
+					</div>
+                    <div class="fld">
+                        <label asp-for="Input.ImageUrl">Image URL — optional</label>
+                        <input asp-for="Input.ImageUrl" placeholder="https://..." />
+                    </div>
+                    <div class="fld">
+                        <label asp-for="Input.ImageFile">Upload image to cloud storage</label>
+                        <input asp-for="Input.ImageFile" type="file" accept=".jpg,.jpeg,.png,.webp" />
+                        <span asp-validation-for="Input.ImageFile" class="val"></span>
+                    </div>
+                    <div class="fld full">
+						<label asp-for="Input.Description">Description</label>
+						<textarea asp-for="Input.Description" placeholder="Short product description"></textarea>
+					</div>
+				</div>
+				<div class="actions">
+					<button type="submit" class="btn btn-primary">@(Model.IsEditing ? "Update Product" : "Add Product")</button>
+					@if (Model.IsEditing)
+					{
+						<a class="btn-cancel" asp-page="/Admin/ProductManagement">Cancel</a>
+					}
+				</div>
+			</form>
+		</div>
+
+		<div class="card">
+			<h2>All Products (@Model.Products.Count)</h2>
+			@if (Model.Products.Count == 0)
+			{
+				<div class="empty">No products yet — add your first product above.</div>
+			}
+			else
+			{
+				<table class="tbl">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Brand</th>
+							<th>Category</th>
+							<th>Price</th>
+							<th>Stock</th>
+							<th>Label</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var p in Model.Products)
+						{
+							<tr>
+								<td class="pname">@p.Name</td>
+								<td>@p.Brand</td>
+								<td>@p.Category</td>
+								<td class="price">RM@(p.Price.ToString("0.00"))</td>
+								<td class="@(p.Stock < 10 ? "stock-low" : "")">@p.Stock</td>
+								<td><span class="lab lab-@p.Label">@p.Label</span></td>
+								<td>
+									<div class="row-actions">
+										<a class="edit" asp-page="/Admin/ProductManagement" asp-route-editId="@p.Id">Edit</a>
+										<form method="post" asp-page-handler="Delete" asp-route-id="@p.Id" onsubmit="return confirm('Delete this product?');">
+											<button type="submit" class="del">Delete</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
+											

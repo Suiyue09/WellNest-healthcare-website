@@ -1,0 +1,346 @@
+@page "{id:int}"
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Customer.ProductDetailsModel
+@{
+    Layout = null;
+    var p = Model.Product;
+    ViewData["Title"] = p?.Name ?? "Product";
+    var initial = Model.CustomerInitial;
+    bool loggedIn = User.Identity?.IsAuthenticated == true;
+}
+
+@functions {
+    string CatEmoji(ProductCategory c) => c switch
+    {
+        ProductCategory.Supplements => "💊",
+        ProductCategory.BathAndBody => "🛁",
+        ProductCategory.Beauty => "✨",
+        ProductCategory.BabyCare => "🍼",
+        ProductCategory.HealthDevices => "🩺",
+        _ => "📦"
+    };
+
+    string LabelText(ProductLabel l) => l switch
+    {
+        ProductLabel.NewArrival => "New arrival",
+        ProductLabel.Bestseller => "Bestseller",
+        ProductLabel.Buy1Free1 => "Buy 1 Free 1",
+        ProductLabel.ThirtyOff => "30% off",
+        ProductLabel.OnSale => "On sale",
+        _ => "Curated wellness"
+    };
+
+    string Stars(int rating) => new string('★', rating) + new string('☆', Math.Max(0, 5 - rating));
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WellNest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/customer-pages.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a class="nav-back-icon" href="javascript:history.back()" aria-label="Back" title="Back">&#8592;</a>
+            <a class="logo" asp-page="/Customer/HomePage">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="nav-spacer"></span>
+            <partial name="_CartLink" model="@("icon-link")" />
+            @if (loggedIn)
+            {
+                <a class="nav-link" asp-page="/Customer/History">🧾 My Orders</a>
+                <a class="nav-link profile-link" asp-page="/Customer/Profile"><span class="avatar">@initial</span> My Profile</a>
+            }
+            else
+            {
+                <a class="nav-link" asp-page="/Account/Login" asp-route-returnUrl="@Url.Page("/Customer/ProductDetails", new { id = p?.Id })">Log in</a>
+                <a class="nav-link" asp-page="/Account/Register" asp-route-returnUrl="@Url.Page("/Customer/ProductDetails", new { id = p?.Id })">Sign up</a>
+            }
+        </div>
+    </nav>
+
+    <main class="wrap">
+        @if (p is null)
+        {
+            <section class="empty">
+                <h1>Product not found</h1>
+                <p>This item may no longer be available.</p>
+                <a class="btn btn-primary" asp-page="/Customer/HomePage">Back to shop</a>
+            </section>
+        }
+        else
+        {
+            <section class="page-head">
+                <div>
+                    <div class="eyebrow">@p.Category</div>
+                    <h1>@p.Name</h1>
+                    <p>@LabelText(p.Label) from @p.Brand</p>
+                </div>
+                <a class="btn btn-secondary" asp-page="/Customer/HomePage" asp-route-category="@p.Category">View @p.Category</a>
+            </section>
+
+            <section class="product-panel">
+                <div class="product-art m-@p.Category">
+                    @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                    {
+                        <img class="product-img" src="@p.ImageUrl" alt="@p.Name" />
+                    }
+                    else
+                    {
+                        @CatEmoji(p.Category)
+                    }
+                </div>
+                <div class="product-info">
+                    <div class="eyebrow">@p.Brand</div>
+                    <h1>@p.Name</h1>
+                    <div class="price" style="font-size:30px;">
+                        @if (p.OldPrice.HasValue)
+                        {
+                            <span class="muted" style="text-decoration:line-through;margin-right:8px;">RM @p.OldPrice.Value.ToString("0.00")</span>
+                        }
+                        RM @p.Price.ToString("0.00")
+                    </div>
+                    <p class="muted">@p.Description</p>
+
+                    <div class="notice @(p.Stock > 0 ? "good" : "bad")" style="margin-top:18px;">
+                        @(p.Stock > 0 ? $"{p.Stock} items available for delivery" : "This product is currently out of stock")
+                    </div>
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="notice bad" asp-validation-summary="All"></div>
+                    }
+
+                    <form method="post" asp-page-handler="AddToCart" asp-route-id="@p.Id">
+                        <div class="field" style="max-width:150px;">
+                            <label asp-for="Quantity">Quantity</label>
+                            <input class="input" asp-for="Quantity" type="number" min="1" max="@Math.Max(1, p.Stock)" />
+                        </div>
+                        <div class="product-actions">
+                            @if (loggedIn)
+                            {
+                                <button class="btn btn-primary" type="submit" disabled="@(p.Stock <= 0)">Add to cart</button>
+                                <button class="btn btn-secondary" type="submit" name="buyNow" value="true" disabled="@(p.Stock <= 0)">Buy now</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary" type="button" data-guest-auth-open disabled="@(p.Stock <= 0)">Add to cart</button>
+                                <button class="btn btn-secondary" type="button" data-guest-auth-open disabled="@(p.Stock <= 0)">Buy now</button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="content-section review-grid">
+                <div class="panel review-score">
+                    <div class="eyebrow">Customer reviews</div>
+                    <strong>@(Model.Reviews.Any() ? Model.AverageRating.ToString("0.0") : "—")</strong>
+                    <div class="stars">@Stars(Model.Reviews.Any() ? (int)Math.Round(Model.AverageRating) : 0)</div>
+                    <p class="muted">@(Model.Reviews.Any() ? $"{Model.Reviews.Count} verified customer reviews" : "No customer reviews yet")</p>
+                </div>
+                <div>
+                    <div class="section-title">
+                        <div>
+                            <div class="eyebrow">What customers say</div>
+                            <h2>Reviews</h2>
+                        </div>
+                    </div>
+                    <div class="review-list">
+                        @if (!Model.Reviews.Any())
+                        {
+                            <article class="review-card">
+                                <strong>Be the first to review this product</strong>
+                                <p class="muted">Customers can leave a review after receiving a delivered order.</p>
+                            </article>
+                        }
+                        @foreach (var review in Model.Reviews.Take(3))
+                        {
+                            <article class="review-card">
+                                <div class="review-top">
+                                    <div>
+                                        <strong>@(string.IsNullOrWhiteSpace(review.CustomerName) ? "WellNest customer" : review.CustomerName)</strong>
+                                        <div class="muted">Verified purchase · @review.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")</div>
+                                    </div>
+                                    <div class="stars">@Stars(review.Rating)</div>
+                                </div>
+                                <p class="muted">@review.Comment</p>
+                            </article>
+                        }
+                    </div>
+                    @if (Model.Reviews.Count > 3)
+                    {
+                        <button class="btn btn-secondary view-all-reviews" type="button" id="openReviewsModal">
+                            View all reviews <span>(@Model.Reviews.Count)</span>
+                        </button>
+                    }
+                </div>
+            </section>
+
+            @if (Model.Reviews.Count > 3)
+            {
+                <div class="reviews-modal" id="reviewsModal" hidden>
+                    <div class="reviews-modal-backdrop" data-close-reviews></div>
+                    <section class="reviews-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="reviewsModalTitle">
+                        <header class="reviews-modal-header">
+                            <div>
+                                <div class="eyebrow">Verified customer feedback</div>
+                                <h2 id="reviewsModalTitle">All reviews</h2>
+                                <p class="muted" id="reviewResultCount">@Model.Reviews.Count reviews</p>
+                            </div>
+                            <button class="reviews-modal-close" type="button" data-close-reviews aria-label="Close reviews">&times;</button>
+                        </header>
+                        <div class="reviews-filters">
+                            <div class="field">
+                                <label for="reviewSort">Sort by</label>
+                                <select class="select" id="reviewSort">
+                                    <option value="latest">Latest review</option>
+                                    <option value="oldest">Oldest review</option>
+                                    <option value="highest">Highest rating</option>
+                                    <option value="lowest">Lowest rating</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="reviewRating">Rating</label>
+                                <select class="select" id="reviewRating">
+                                    <option value="all">All ratings</option>
+                                    @for (var rating = 5; rating >= 1; rating--)
+                                    {
+                                        <option value="@rating">@rating star@(rating == 1 ? "" : "s")</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="reviews-modal-list" id="allReviewsList">
+                            @foreach (var review in Model.Reviews)
+                            {
+                                <article class="review-card"
+                                         data-rating="@review.Rating"
+                                         data-created="@review.CreatedAt.ToUniversalTime().Ticks">
+                                    <div class="review-top">
+                                        <div>
+                                            <strong>@(string.IsNullOrWhiteSpace(review.CustomerName) ? "WellNest customer" : review.CustomerName)</strong>
+                                            <div class="muted">Verified purchase · @review.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")</div>
+                                        </div>
+                                        <div class="stars" aria-label="@review.Rating out of 5 stars">@Stars(review.Rating)</div>
+                                    </div>
+                                    <p class="muted">@review.Comment</p>
+                                </article>
+                            }
+                            <div class="reviews-empty" id="reviewsEmpty" hidden>
+                                <strong>No matching reviews</strong>
+                                <p class="muted">Try choosing a different rating.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            }
+
+            @if (Model.SimilarProducts.Any())
+            {
+                <section class="content-section">
+                    <div class="section-title">
+                        <div>
+                            <div class="eyebrow">More like this</div>
+                            <h2>Similar products</h2>
+                        </div>
+                        <a class="btn btn-secondary" asp-page="/Customer/HomePage" asp-route-category="@p.Category">View all</a>
+                    </div>
+                    <div class="related-grid">
+                    @foreach (var r in Model.SimilarProducts)
+                    {
+                        <a class="mini-product" asp-page="/Customer/ProductDetails" asp-route-id="@r.Id">
+                            <div class="thumb m-@r.Category" style="margin-bottom:12px;">
+                                @if (!string.IsNullOrWhiteSpace(r.ImageUrl))
+                                {
+                                    <img class="product-img" src="@r.ImageUrl" alt="@r.Name" loading="lazy" />
+                                }
+                                else
+                                {
+                                    @CatEmoji(r.Category)
+                                }
+                            </div>
+                            <div class="muted">@r.Brand</div>
+                            <div class="item-name">@r.Name</div>
+                            <div class="price">RM @r.Price.ToString("0.00")</div>
+                        </a>
+                    }
+                    </div>
+                </section>
+            }
+        }
+    </main>
+
+    <partial name="_CustomerFooter" />
+    <partial name="_GuestAuthModal" model="@Url.Page("/Customer/ProductDetails", new { id = p?.Id })" />
+    <script>
+        (() => {
+            const modal = document.getElementById('reviewsModal');
+            const openButton = document.getElementById('openReviewsModal');
+            if (!modal || !openButton) return;
+
+            const dialog = modal.querySelector('.reviews-modal-dialog');
+            const list = document.getElementById('allReviewsList');
+            const sort = document.getElementById('reviewSort');
+            const rating = document.getElementById('reviewRating');
+            const resultCount = document.getElementById('reviewResultCount');
+            const empty = document.getElementById('reviewsEmpty');
+            const cards = [...list.querySelectorAll('.review-card')];
+
+            const updateReviews = () => {
+                const selectedRating = rating.value;
+                const visible = cards.filter(card =>
+                    selectedRating === 'all' || card.dataset.rating === selectedRating);
+
+                visible.sort((a, b) => {
+                    const dateA = Number(a.dataset.created);
+                    const dateB = Number(b.dataset.created);
+                    const ratingA = Number(a.dataset.rating);
+                    const ratingB = Number(b.dataset.rating);
+                    if (sort.value === 'oldest') return dateA - dateB;
+                    if (sort.value === 'highest') return ratingB - ratingA || dateB - dateA;
+                    if (sort.value === 'lowest') return ratingA - ratingB || dateB - dateA;
+                    return dateB - dateA;
+                });
+
+                cards.forEach(card => card.hidden = true);
+                visible.forEach(card => {
+                    card.hidden = false;
+                    list.insertBefore(card, empty);
+                });
+                resultCount.textContent = `${visible.length} ${visible.length === 1 ? 'review' : 'reviews'}`;
+                empty.hidden = visible.length !== 0;
+            };
+
+            const openModal = () => {
+                modal.hidden = false;
+                document.body.classList.add('modal-open');
+                updateReviews();
+                dialog.querySelector('button, select')?.focus();
+            };
+            const closeModal = () => {
+                modal.hidden = true;
+                document.body.classList.remove('modal-open');
+                openButton.focus();
+            };
+
+            openButton.addEventListener('click', openModal);
+            modal.querySelectorAll('[data-close-reviews]').forEach(button =>
+                button.addEventListener('click', closeModal));
+            sort.addEventListener('change', updateReviews);
+            rating.addEventListener('change', updateReviews);
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !modal.hidden) closeModal();
+            });
+        })();
+    </script>
+</body>
+</html>

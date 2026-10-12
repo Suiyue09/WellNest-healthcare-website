@@ -1,0 +1,218 @@
+@page "{id:int}"
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Customer.TrackingModel
+@{
+    Layout = null;
+    var order = Model.Order!;
+    ViewData["Title"] = $"Order #{order.Id}";
+    var currentIndex = order.Status == OrderStatus.Cancelled ? -1 : Model.Steps.ToList().IndexOf(order.Status);
+    var initial = Model.CustomerInitial;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking - WellNest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/customer-pages.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a class="nav-back-icon" href="javascript:history.back()" aria-label="Back" title="Back">&#8592;</a>
+            <a class="logo" asp-page="/Customer/HomePage">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="nav-spacer"></span>
+            <partial name="_CartLink" model="@("icon-link")" />
+            <a class="nav-link" asp-page="/Customer/History">🧾 My Orders</a>
+            <a class="nav-link profile-link" asp-page="/Customer/Profile"><span class="avatar">@initial</span> My Profile</a>
+        </div>
+    </nav>
+
+    <main class="wrap tracking-wrap">
+        <section class="page-head">
+            <div>
+                <div class="eyebrow">Order tracking</div>
+                <h1>Order #@order.Id</h1>
+                <p>Placed on @order.OrderDate.ToLocalTime().ToString("dd MMM yyyy, h:mm tt")</p>
+            </div>
+            <span class="badge @order.Status">@order.Status</span>
+        </section>
+
+        @if (order.Status == OrderStatus.Cancelled)
+        {
+            <div class="notice bad auto-dismiss">This order has been cancelled.</div>
+        }
+        else
+        {
+            <section class="stepper tracking-stepper">
+                @for (var i = 0; i < Model.Steps.Count; i++)
+                {
+                    var step = Model.Steps[i];
+                    <div class="step @(i <= currentIndex ? "done" : "")">
+                        <strong>@(step == OrderStatus.Pending ? "Processing" : step.ToString())</strong>
+                        <span>@(i <= currentIndex ? "Completed" : "Waiting")</span>
+                    </div>
+                }
+            </section>
+        }
+
+        @* DELIVERY PROOF SECTION — shows when order is delivered *@
+        @if (order.Status == OrderStatus.Delivered)
+        {
+            <section class="panel" style="margin-bottom:1.5rem;background:#e0f7f4;border:1px solid #b2dfdb;border-radius:16px;padding:1.5rem;">
+                <h2 style="color:#00a896;font-family:'Lora',serif;margin-bottom:1rem;">✅ Delivery Confirmed</h2>
+
+                @if (order.DeliveredAt.HasValue)
+                {
+                    <div class="row" style="margin-bottom:0.5rem;">
+                        <span style="color:#6b7a99;">Delivered on</span>
+                        <strong>@order.DeliveredAt.Value.ToLocalTime().ToString("dd MMM yyyy, h:mm tt")</strong>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(order.DeliveryNote))
+                {
+                    <div class="row" style="margin-bottom:0.5rem;">
+                        <span style="color:#6b7a99;">📝 Note</span>
+                        <strong>@order.DeliveryNote</strong>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(order.DeliveryProofImageUrl))
+                {
+                    <div style="margin-top:1rem;">
+                        <p style="color:#6b7a99;font-size:0.88rem;margin-bottom:0.5rem;">📸 Proof of delivery:</p>
+                        <img src="@order.DeliveryProofImageUrl"
+                             alt="Delivery proof"
+                             style="max-width:100%;border-radius:12px;border:1px solid #b2dfdb;box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
+                    </div>
+                }
+            </section>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <div class="notice auto-dismiss @(Model.IsSuccess ? "good" : "bad")">@Model.Message</div>
+        }
+
+        @if ((order.PaymentStatus is PaymentStatus.Failed or PaymentStatus.Pending) && order.Status != OrderStatus.Cancelled)
+        {
+            <section class="panel tracking-payment-panel">
+                <h2>Payment</h2>
+                <p class="muted">Payment status: @order.PaymentStatus.</p>
+                <form method="post" asp-page-handler="RetryPayment" asp-route-id="@order.Id">
+                    <button class="btn btn-primary" type="submit">Try payment again</button>
+                </form>
+            </section>
+        }
+
+        <section class="grid-2 tracking-details-grid">
+            <div class="panel tracking-items-panel">
+                <h2>Items</h2>
+                @foreach (var item in order.Items)
+                {
+                    <div class="order-item-review">
+                        <div class="row tracking-product-row">
+                            <span class="tracking-product">
+                                @if (Model.ProductImageUrls.TryGetValue(item.ProductId, out var imageUrl))
+                                {
+                                    <img class="product-img" src="@imageUrl" alt="@item.ProductName" loading="lazy" />
+                                }
+                                <span>@item.ProductName × @item.Quantity</span>
+                            </span>
+                            <strong>RM @((item.UnitPrice * item.Quantity).ToString("0.00"))</strong>
+                        </div>
+                        @if (order.Status == OrderStatus.Delivered)
+                        {
+                            if (Model.ReviewsByProductId.TryGetValue(item.ProductId, out var savedReview))
+                            {
+                                <div class="review-card compact">
+                                    <div class="review-top">
+                                        <strong>Your review</strong>
+                                        <span class="stars">@(new string('★', savedReview.Rating))@(new string('☆', 5 - savedReview.Rating))</span>
+                                    </div>
+                                    <p class="muted">@savedReview.Comment</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <form class="review-form" method="post" asp-page-handler="Review" asp-route-id="@order.Id">
+                                    <input type="hidden" name="Review.ProductId" value="@item.ProductId" />
+                                    <div class="field">
+                                        <label>Rating</label>
+                                        <select class="select" name="Review.Rating">
+                                            <option value="5">5 stars</option>
+                                            <option value="4">4 stars</option>
+                                            <option value="3">3 stars</option>
+                                            <option value="2">2 stars</option>
+                                            <option value="1">1 star</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label>Review</label>
+                                        <textarea class="textarea" name="Review.Comment" placeholder="Share your experience with this product"></textarea>
+                                    </div>
+                                    <button class="btn btn-secondary" type="submit">Submit review</button>
+                                </form>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+            <aside class="summary tracking-summary">
+                <h2>Shipping details</h2>
+                <div class="row"><span>Name</span><strong>@order.CustomerName</strong></div>
+                <div class="row"><span>Email</span><strong>@order.CustomerEmail</strong></div>
+                <div class="row"><span>Phone</span><strong>@(string.IsNullOrWhiteSpace(Model.CustomerPhoneNumber) ? "Not provided" : Model.CustomerPhoneNumber)</strong></div>
+                <div class="row" style="align-items:flex-start;"><span>Address</span><strong style="text-align:right;">@order.DeliveryAddress</strong></div>
+                <div class="row"><span>Payment</span><strong>@order.PaymentStatus</strong></div>
+                @if (!string.IsNullOrWhiteSpace(order.PaymentReference))
+                {
+                    <div class="row"><span>Payment ref</span><strong class="break-value">@order.PaymentReference</strong></div>
+                }
+                @if (!string.IsNullOrWhiteSpace(order.VoucherCode))
+                {
+                    <div class="row"><span>Voucher</span><strong>@order.VoucherCode</strong></div>
+                }
+                @if (order.Discount > 0)
+                {
+                    <div class="row"><span>Discounts</span><strong>- RM @order.Discount.ToString("0.00")</strong></div>
+                }
+                @if (!string.IsNullOrWhiteSpace(order.TrackingNumber))
+                {
+                    <div class="row"><span>Courier</span><strong>@order.ShippingProvider</strong></div>
+                    <div class="row"><span>Tracking no.</span><strong>@order.TrackingNumber</strong></div>
+                }
+                <div class="row total"><span>Total</span><strong>RM @order.Total.ToString("0.00")</strong></div>
+                <a class="btn btn-secondary" style="width:100%;margin-top:14px;" asp-page="/Customer/History">Back to orders</a>
+                @if (order.Status is OrderStatus.Pending or OrderStatus.Packed)
+                {
+                    <form class="cancel-order-form" method="post" asp-page-handler="Cancel" asp-route-id="@order.Id" onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                        <div class="field">
+                            <label for="cancellationReason">Cancel order reason</label>
+                            <select class="select" id="cancellationReason" name="cancellationReason" required>
+                                <option value="">Choose a reason</option>
+                                @foreach (var reason in Model.CancellationReasons)
+                                {
+                                    <option value="@reason">@reason</option>
+                                }
+                            </select>
+                        </div>
+                        <button class="btn btn-danger" type="submit">Confirm cancellation</button>
+                    </form>
+                }
+            </aside>
+        </section>
+    </main>
+
+    <partial name="_CustomerFooter" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

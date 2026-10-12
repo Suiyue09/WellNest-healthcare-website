@@ -1,0 +1,368 @@
+﻿@page
+@model Healthcare_Industry.Pages.Delivery.PayoutModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payout — WellNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d2454" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f6ff;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #0d2454;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Lora', serif;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .topbar-logo .orb {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2979ff, #1246a0);
+                display: grid;
+                place-items: center;
+                font-size: 17px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            }
+
+            .topbar-logo .name span {
+                color: #2979ff;
+            }
+
+        .role-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #8a99b8;
+            letter-spacing: 0.04em;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+            .topbar-nav a {
+                color: #ddeeff;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 0.3rem 0.7rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+            }
+
+                .topbar-nav a:hover, .topbar-nav a.active {
+                    background: #1246a0;
+                    color: #fff;
+                }
+
+                .topbar-nav a.logout {
+                    color: #e8524a;
+                }
+
+        .main {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: #0d2454;
+            margin-bottom: 0.3rem;
+        }
+
+        .page-subtitle {
+            color: #6b7a99;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #0d2454, #1246a0);
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(13,36,84,0.2);
+        }
+
+        .balance-label {
+            font-size: 0.9rem;
+            color: #c2deff;
+            margin-bottom: 0.4rem;
+        }
+
+        .balance-amount {
+            font-family: 'Lora', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+        }
+
+        .balance-sub {
+            font-size: 0.82rem;
+            color: #93c4fb;
+            margin-top: 0.4rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 12px rgba(13,36,84,0.07);
+        }
+
+        .card-title {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            color: #0d2454;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b7a99;
+            margin-bottom: 0.4rem;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddeeff;
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: #1246a0;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.88;
+            }
+
+        .notice {
+            padding: 0.9rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+        }
+
+            .notice.good {
+                background: #e0f7f4;
+                color: #00a896;
+            }
+
+            .notice.bad {
+                background: #fee2e2;
+                color: #e8524a;
+            }
+
+        .withdraw-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eef6ff;
+            font-size: 0.9rem;
+        }
+
+            .withdraw-row:last-child {
+                border-bottom: none;
+            }
+
+        .withdraw-amount {
+            font-weight: 700;
+            color: #0d2454;
+        }
+
+        .withdraw-date {
+            color: #6b7a99;
+            font-size: 0.78rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3e0;
+            color: #f97316;
+        }
+
+        .status-paid {
+            background: #e0f7f4;
+            color: #00a896;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #e8524a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7a99;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <a class="topbar-logo" href="/Delivery/AssignOrders">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <span class="role-badge">@(User.Identity?.Name == "Delivery@wellnest.com" ? "DELIVERY ADMIN" : "RIDER")</span>
+        </div>
+        <div class="topbar-nav">
+            @if (User.Identity?.Name == "Delivery@wellnest.com")
+            {
+                <a href="/Delivery/DeliveryDashboard">Dashboard</a>
+                <a href="/Delivery/Riders">Riders</a>
+            }
+            <a href="/Delivery/AssignOrders">My Orders</a>
+            <a href="/Delivery/Payout" class="active">Payout</a>
+            <a href="/Account/Logout" class="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="page-title">Payout</div>
+        <div class="page-subtitle">Your earnings and withdrawal requests.</div>
+
+        <div class="balance-card">
+            <div class="balance-label">💰 Available to Withdraw</div>
+            <div class="balance-amount">RM@(Model.AvailableBalance.ToString("0.00"))</div>
+            <div class="balance-sub">Total earned: RM@(Model.TotalEarned.ToString("0.00")) · Already requested/paid: RM@(Model.AlreadyRequested.ToString("0.00"))</div>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <div class="notice @(Model.IsSuccess ? "good" : "bad")">@Model.Message</div>
+        }
+
+        <div class="card">
+            <div class="card-title">Request Withdrawal</div>
+            @if (Model.AvailableBalance <= 0)
+            {
+                <div class="empty-state">You have no available balance to withdraw right now.</div>
+            }
+            else
+            {
+                <form method="post" asp-page-handler="RequestWithdrawal">
+                    <div class="field">
+                        <label>Amount (RM)</label>
+                        <input type="number" name="amount" step="0.01" min="0.01" max="@Model.AvailableBalance" placeholder="e.g. @(Model.AvailableBalance.ToString("0.00"))" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Request Withdrawal</button>
+                </form>
+            }
+        </div>
+
+        <div class="card">
+            <div class="card-title">Withdrawal History</div>
+            @if (!Model.MyWithdrawals.Any())
+            {
+                <div class="empty-state">No withdrawal requests yet.</div>
+            }
+            else
+            {
+                @foreach (var w in Model.MyWithdrawals)
+                {
+                    <div class="withdraw-row">
+                        <div>
+                            <div class="withdraw-amount">RM@(w.Amount.ToString("0.00"))</div>
+                            <div class="withdraw-date">
+                                Requested @w.RequestedAt.ToLocalTime().ToString("d MMM yyyy, h:mm tt")
+                                @if (w.PaidAt.HasValue)
+                                {
+                                    <span> · Paid @w.PaidAt.Value.ToLocalTime().ToString("d MMM yyyy")</span>
+                                }
+                            </div>
+                        </div>
+                        <span class="status-badge status-@w.Status.ToString().ToLower()">@w.Status</span>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('WellNest SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>

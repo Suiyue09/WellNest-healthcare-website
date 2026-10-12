@@ -1,0 +1,19 @@
+{
+  "region": "us-east-1",
+  "configuration": "Debug",
+  "framework": "net8.0",
+  "self-contained": true,
+  "application": "HealthcareIndustry",
+  "environment": "HealthcareIndustry-prod",
+  "enable-xray": false,
+  "enhanced-health-type": "basic",
+  "additional-options": "\u0022aws:autoscaling:launchconfiguration,SecurityGroups\u0022=\u0022sg-0d14aed9fee91117f,sg-02a9d1a1259c4b132\u0022;\u0022aws:ec2:vpc,Subnets\u0022=\u0022subnet-0ccbf3099c95f6948\u0022",
+  "solution-stack": "64bit Amazon Linux 2 v2.16.3 running .NET Core",
+  "environment-type": "SingleInstance",
+  "cname": "healthcareindustry-prod",
+  "instance-type": "t2.micro",
+  "key-pair": "healthcare-key",
+  "instance-profile": "LabInstanceProfile",
+  "service-role": "LabRole",
+  "proxy-server": "nginx"
+}

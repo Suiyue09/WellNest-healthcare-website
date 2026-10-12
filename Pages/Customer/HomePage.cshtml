@@ -1,0 +1,1699 @@
+@page
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Customer.HomePageModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Home";
+
+    string active = string.IsNullOrWhiteSpace(Model.Category) ? "All" : Model.Category;
+    bool loggedIn = User.Identity?.IsAuthenticated == true;
+    bool priceActive = Model.MinPrice.HasValue || Model.MaxPrice.HasValue;
+
+    string heading;
+    if (!string.IsNullOrWhiteSpace(Model.Q)) heading = $"Results for \u201c{Model.Q}\u201d";
+    else if (Model.Category == "BathAndBody") heading = "Bath & Body";
+    else if (Model.Category == "BabyCare") heading = "Baby Care";
+    else if (Model.Category == "HealthDevices") heading = "Health Devices";
+    else if (!string.IsNullOrWhiteSpace(Model.Category)) heading = Model.Category;
+    else heading = "All products";
+
+    bool showStrip = Model.NewArrivals.Any()
+                     && string.IsNullOrWhiteSpace(Model.Category)
+                     && string.IsNullOrWhiteSpace(Model.Q)
+                     && !Model.MinPrice.HasValue
+                     && !Model.MaxPrice.HasValue;
+}
+
+@functions {
+    string LabelClass(ProductLabel l) => l switch
+    {
+        ProductLabel.NewArrival => "new",
+        ProductLabel.Bestseller => "best",
+        ProductLabel.Buy1Free1 => "b1f1",
+        ProductLabel.ThirtyOff => "off",
+        ProductLabel.OnSale => "sale",
+        _ => ""
+    };
+    string LabelText(ProductLabel l) => l switch
+    {
+        ProductLabel.NewArrival => "New",
+        ProductLabel.Bestseller => "Bestseller",
+        ProductLabel.Buy1Free1 => "Buy 1 Free 1",
+        ProductLabel.ThirtyOff => "30% Off",
+        ProductLabel.OnSale => "Sale",
+        _ => ""
+    };
+    string CatEmoji(ProductCategory c) => c switch
+    {
+        ProductCategory.Supplements => "💊",
+        ProductCategory.BathAndBody => "🛁",
+        ProductCategory.Beauty => "✨",
+        ProductCategory.BabyCare => "🍼",
+        ProductCategory.HealthDevices => "🩺",
+        _ => "📦"
+    };
+
+    string UserInitial()
+    {
+        return Model.CustomerInitial;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WellNest — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f6ff;
+            --card: #fff;
+            --navy: #0d2454;
+            --primary: #1246a0;
+            --accent: #2979ff;
+            --sky: #5b9df5;
+            --frost: #93c4fb;
+            --ice: #c2deff;
+            --mist: #ddeeff;
+            --pale: #eef6ff;
+            --ink: #08172e;
+            --ink2: #1a3251;
+            --slate: #3a5a80;
+            --steel: #6b8db0;
+            --fog: #a8c4d8;
+            --gold: #c8971e;
+            --coral: #e8524a;
+            --mint: #00a896;
+            --orange: #f97316;
+            --s1: 0 1px 4px rgba(10,31,68,.06),0 2px 8px rgba(10,31,68,.04);
+            --s2: 0 4px 18px rgba(10,31,68,.09),0 1px 4px rgba(10,31,68,.05);
+            --s3: 0 12px 40px rgba(10,31,68,.13),0 2px 8px rgba(10,31,68,.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'DM Sans',sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        h1, h2, h3 {
+            font-family: 'Lora',serif
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        .product-img {
+            display: block;
+            height: 100%;
+            object-fit: contain;
+            width: 100%;
+        }
+
+        .wrap {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 28px;
+            width: 100%
+        }
+
+        /* nav */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            background: rgba(255,255,255,.92);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--s1);
+            border-bottom: 1px solid var(--mist)
+        }
+
+        .nav-in {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 13px 28px;
+            max-width: 1240px;
+            margin: 0 auto
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+            .logo .orb {
+                width: 38px;
+                height: 38px;
+                border-radius: 11px;
+                background: linear-gradient(135deg,var(--accent),var(--primary));
+                display: grid;
+                place-items: center;
+                color: #fff;
+                font-size: 19px;
+                box-shadow: 0 4px 12px rgba(41,121,255,.35)
+            }
+
+            .logo .name {
+                font-family: 'Lora',serif;
+                font-size: 23px;
+                font-weight: 600;
+                color: var(--primary)
+            }
+
+                .logo .name span {
+                    color: var(--accent)
+                }
+
+        .search {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: var(--pale);
+            border: 1.5px solid var(--mist);
+            border-radius: 11px;
+            padding: 10px 15px;
+            transition: .18s
+        }
+
+            .search:focus-within {
+                border-color: var(--accent);
+                background: #fff;
+                box-shadow: 0 0 0 4px rgba(41,121,255,.1)
+            }
+
+            .search input {
+                border: none;
+                background: none;
+                outline: none;
+                font-size: 15px;
+                width: 100%;
+                color: var(--ink)
+            }
+
+            .search .search-hidden {
+                display: none;
+            }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .nav-link {
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14.5px;
+            color: var(--slate);
+            transition: .15s
+        }
+
+            .nav-link:hover {
+                background: var(--pale);
+                color: var(--primary)
+            }
+
+        .cart-link {
+            position: relative;
+            font-size: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            color: var(--ink2);
+            transition: .15s
+        }
+
+            .cart-link:hover {
+                background: var(--pale)
+            }
+
+        .cart-count-badge {
+            align-items: center;
+            background: var(--coral);
+            border: 2px solid #fff;
+            border-radius: 999px;
+            color: #fff;
+            display: inline-flex;
+            font-size: 11px;
+            font-weight: 800;
+            height: 20px;
+            justify-content: center;
+            min-width: 20px;
+            padding: 0 5px;
+            position: absolute;
+            right: -3px;
+            top: -3px;
+        }
+
+        .profile-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .btn-signup {
+            padding: 9px 17px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14.5px;
+            color: #fff;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            box-shadow: 0 4px 12px rgba(41,121,255,.3)
+        }
+
+            .btn-signup:hover {
+                transform: translateY(-1px)
+            }
+
+        /* compact price filter beside the search bar */
+        .price-tool {
+            position: relative;
+            flex-shrink: 0
+        }
+
+        .price-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            height: 43px;
+            padding: 0 14px;
+            border: 1.5px solid var(--mist);
+            border-radius: 11px;
+            background: var(--pale);
+            color: var(--slate);
+            font-weight: 600;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: .15s;
+            white-space: nowrap
+        }
+
+            .price-btn:hover {
+                border-color: var(--frost);
+                color: var(--primary)
+            }
+
+            .price-btn.on {
+                border-color: var(--accent);
+                color: var(--primary);
+                background: #fff
+            }
+
+            .price-btn .caret {
+                font-size: 10px;
+                color: var(--steel)
+            }
+
+            .price-btn .dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--accent)
+            }
+
+        .price-pop {
+            position: absolute;
+            top: 54px;
+            right: 0;
+            width: 256px;
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            box-shadow: var(--s3);
+            padding: 16px;
+            z-index: 90;
+            display: none
+        }
+
+            .price-pop.open {
+                display: block
+            }
+
+            .price-pop .pp-title {
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: .5px;
+                text-transform: uppercase;
+                color: var(--steel);
+                margin-bottom: 12px
+            }
+
+            .price-pop .pp-row {
+                display: flex;
+                align-items: flex-end;
+                gap: 9px;
+                margin-bottom: 15px
+            }
+
+            .price-pop label {
+                flex: 1;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--steel);
+                text-transform: uppercase;
+                letter-spacing: .4px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px
+            }
+
+            .price-pop input {
+                width: 100%;
+                border: 1.5px solid var(--mist);
+                border-radius: 9px;
+                padding: 9px 10px;
+                font-size: 14px;
+                font-family: inherit;
+                color: var(--ink);
+                outline: none
+            }
+
+                .price-pop input:focus {
+                    border-color: var(--accent)
+                }
+
+            .price-pop .pp-sep {
+                color: var(--fog);
+                padding-bottom: 11px;
+                font-weight: 700
+            }
+
+            .price-pop .pp-actions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px
+            }
+
+        .pp-clear {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--steel)
+        }
+
+            .pp-clear:hover {
+                color: var(--coral)
+            }
+
+        .pp-apply {
+            border: none;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 9px 22px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: .15s
+        }
+
+            .pp-apply:hover {
+                transform: translateY(-1px)
+            }
+
+        /* category bar */
+        .catbar {
+            position: sticky;
+            top: 73px;
+            z-index: 55;
+            background: rgba(244,249,255,.94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--mist)
+        }
+
+        .catbar-in {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            max-width: 1240px;
+            margin: 0 auto;
+            overflow-x: auto
+        }
+
+        .cat-pill {
+            flex-shrink: 0;
+            padding: 8px 17px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--slate);
+            background: #fff;
+            border: 1.5px solid var(--mist);
+            white-space: nowrap;
+            transition: .15s
+        }
+
+            .cat-pill:hover {
+                border-color: var(--frost);
+                color: var(--primary)
+            }
+
+            .cat-pill.active {
+                background: linear-gradient(135deg,var(--primary),var(--accent));
+                color: #fff;
+                border-color: transparent;
+                box-shadow: 0 4px 12px rgba(41,121,255,.3)
+            }
+
+        /* hero */
+        .hero {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 26px 28px 6px;
+            width: 100%
+        }
+
+        .hero-banner {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 42px 48px;
+            background: linear-gradient(120deg,#07142b,#0d2454 45%,#1246a0);
+            box-shadow: var(--s3)
+        }
+
+            .hero-banner::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 76% 42%,rgba(255,255,255,.2),transparent 34%),
+                            linear-gradient(90deg,rgba(7,20,43,.96),rgba(13,36,84,.82) 46%,rgba(18,70,160,.46));
+                pointer-events: none;
+                z-index: 1;
+            }
+
+        .hero-content {
+            max-width: 540px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-banner:not(.active) {
+            display: none;
+        }
+
+        .hero-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            pointer-events: none;
+            inset: 0 24px;
+            position: absolute;
+            z-index: 4;
+        }
+
+        .hero-visual {
+            align-items: center;
+            align-self: stretch;
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+            min-width: 430px;
+            padding-right: 130px;
+            position: relative;
+            transform: translateY(-18px);
+            z-index: 2;
+        }
+
+            .hero-visual.baby-care {
+                transform: translateY(-34px);
+            }
+
+        .hero-product {
+            align-items: center;
+            display: grid;
+            filter: drop-shadow(0 18px 24px rgba(0,0,0,.32));
+            height: 150px;
+            justify-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+            .hero-product img {
+                height: 100%;
+                object-fit: contain;
+                width: 100%;
+            }
+
+            .hero-product.main {
+                height: 190px;
+                transform: translateY(-4px);
+                width: 190px;
+                z-index: 2;
+            }
+
+            .hero-product.side {
+                margin-left: -42px;
+                transform: translateY(-2px) rotate(5deg);
+                z-index: 1;
+            }
+
+            .hero-product.back {
+                margin-right: -42px;
+                transform: translateY(-18px) rotate(-6deg);
+                z-index: 1;
+            }
+
+        .hero-arrow {
+            pointer-events: auto;
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,.9);
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,.18);
+        }
+
+        .hero .eyebrow {
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--ice);
+            background: rgba(255,255,255,.14);
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin-bottom: 16px
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.1;
+            color: #fff;
+            font-style: italic;
+            font-weight: 500;
+            margin-bottom: 14px;
+            max-width: 560px;
+            text-shadow: 0 2px 20px rgba(0,0,0,.2)
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: rgba(255,255,255,.85);
+            margin-bottom: 24px;
+            max-width: 430px
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 15.5px;
+            padding: 13px 26px;
+            border-radius: 11px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.18);
+            transition: .2s
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 30px rgba(0,0,0,.25)
+            }
+
+        /* section heading */
+        .sec-head {
+            display: flex;
+            align-items: flex-end;
+            gap: 13px;
+            margin: 38px 0 20px
+        }
+
+            .sec-head .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--accent);
+                box-shadow: 0 0 0 5px rgba(41,121,255,.18);
+                margin-bottom: 8px
+            }
+
+            .sec-head h2 {
+                font-size: 27px;
+                font-weight: 600;
+                font-style: italic;
+                color: var(--navy)
+            }
+
+            .sec-head .count {
+                font-size: 12.5px;
+                color: var(--steel);
+                background: #fff;
+                border: 1px solid var(--mist);
+                padding: 4px 11px;
+                border-radius: 20px;
+                margin-bottom: 6px;
+                font-weight: 600
+            }
+
+            .sec-head .line {
+                flex: 1;
+                height: 1px;
+                background: linear-gradient(90deg,var(--mist),transparent);
+                margin-bottom: 13px
+            }
+
+        /* new arrivals strip */
+        .strip {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 16px
+        }
+
+        .mini {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: var(--s1);
+            transition: .2s
+        }
+
+            .mini:hover {
+                box-shadow: var(--s2);
+                transform: translateY(-3px);
+                border-color: var(--frost)
+            }
+
+            .mini .thumb {
+                width: 54px;
+                height: 54px;
+                border-radius: 11px;
+                display: grid;
+                place-items: center;
+                font-size: 28px;
+                flex-shrink: 0;
+                overflow: hidden
+            }
+
+            .mini .mt {
+                font-size: 10.5px;
+                font-weight: 700;
+                color: var(--accent);
+                letter-spacing: .4px;
+                text-transform: uppercase
+            }
+
+            .mini .mn {
+                font-family: 'Lora';
+                font-style: italic;
+                font-size: 15px;
+                color: var(--ink);
+                line-height: 1.25;
+                margin: 2px 0
+            }
+
+            .mini .mp {
+                font-family: 'Lora';
+                font-weight: 600;
+                color: var(--primary);
+                font-size: 14.5px
+            }
+
+        /* product grid + card */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 24px
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--s1);
+            transition: .22s;
+            position: relative;
+            display: flex;
+            flex-direction: column
+        }
+
+            .card:hover {
+                box-shadow: var(--s3);
+                transform: translateY(-5px);
+                border-color: var(--frost)
+            }
+
+            .card .media {
+                background: #fff;
+                height: 250px;
+                display: grid;
+                place-items: center;
+                font-size: 58px;
+                padding: 6px;
+                position: relative;
+                overflow: hidden
+            }
+
+            .card .media .product-img {
+                max-height: 238px;
+                max-width: 98%;
+            }
+
+            .card .labels {
+                position: absolute;
+                top: 11px;
+                left: 11px;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start
+            }
+
+        .lbl {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #fff;
+            padding: 3px 9px;
+            border-radius: 6px;
+            letter-spacing: .3px
+        }
+
+            .lbl.new {
+                background: #1246a0
+            }
+
+            .lbl.best {
+                background: #c8971e
+            }
+
+            .lbl.b1f1 {
+                background: #059669
+            }
+
+            .lbl.off {
+                background: #dc2626
+            }
+
+            .lbl.sale {
+                background: #f97316
+            }
+
+        .card .cbody {
+            padding: 14px 15px 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1
+        }
+
+        .card .brand {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--steel);
+            text-transform: uppercase;
+            letter-spacing: .6px
+        }
+
+        .card .pname {
+            font-family: 'Lora';
+            font-style: italic;
+            font-size: 17px;
+            color: var(--ink);
+            line-height: 1.25;
+            margin: 3px 0 7px;
+            min-height: 42px;
+            display: block
+        }
+
+        .card .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto
+        }
+
+        .card .price {
+            font-family: 'Lora';
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--primary)
+        }
+
+            .card .price s {
+                font-size: 12.5px;
+                color: var(--fog);
+                font-weight: 400;
+                margin-right: 6px
+            }
+
+        .add {
+            border: 0;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+            box-shadow: 0 4px 12px rgba(41,121,255,.35);
+            transition: .2s
+        }
+
+            .add:hover {
+                transform: rotate(90deg) scale(1.05)
+            }
+
+        .stock-out {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,.68);
+            backdrop-filter: blur(2px);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: var(--coral);
+            font-size: 14px
+        }
+
+        .m-Supplements {
+            background: linear-gradient(135deg,#eef6ff,#ddeeff)
+        }
+
+        .m-BathAndBody {
+            background: linear-gradient(135deg,#e8f7f4,#d6f0ea)
+        }
+
+        .m-Beauty {
+            background: linear-gradient(135deg,#fdeef6,#f9dcec)
+        }
+
+        .m-BabyCare {
+            background: linear-gradient(135deg,#fff5e9,#ffe9cf)
+        }
+
+        .m-HealthDevices {
+            background: linear-gradient(135deg,#eef2ff,#e0e7ff)
+        }
+
+        .empty-grid {
+            text-align: center;
+            padding: 50px 0;
+            color: var(--steel);
+            font-size: 16px
+        }
+
+            .empty-grid a {
+                color: var(--primary);
+                font-weight: 700
+            }
+
+        main#catalog {
+            padding-bottom: 118px
+        }
+
+        /* footer (unchanged from your version — used by the _CustomerFooter partial) */
+        .site-footer {
+            margin-top: auto;
+            background: #132a63;
+            color: #fff;
+            padding: 54px 0 24px
+        }
+
+        .foot-in {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 28px;
+            display: grid;
+            grid-template-columns: 1.45fr .9fr .9fr 1.35fr;
+            align-items: start;
+            gap: 54px
+        }
+
+            .foot-in .fname {
+                font-family: 'Lora';
+                font-size: 29px;
+                font-weight: 700;
+                margin-bottom: 18px
+            }
+
+                .foot-in .fname span {
+                    color: var(--sky)
+                }
+
+            .foot-in .fcopy {
+                color: var(--ice);
+                font-size: 13px;
+                margin-top: 3px
+            }
+
+        .foot-links {
+            display: flex;
+            flex-direction: column;
+            gap: 13px
+        }
+
+        .foot-title {
+            color: rgba(255,255,255,.74);
+            font-family: 'Lora', serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .foot-text {
+            color: rgba(232,242,255,.82);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .foot-links a {
+            color: rgba(232,242,255,.86);
+            font-size: 15px;
+            font-weight: 600
+        }
+
+            .foot-links a:hover {
+                color: #fff
+            }
+
+        .brand-leaf {
+            color: #9fd08a !important;
+            display: inline-block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 24px;
+            margin-right: 12px;
+            vertical-align: 1px;
+        }
+
+        .foot-socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+            .foot-socials a {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                background: rgba(255,255,255,.1);
+                color: #fff;
+                font-weight: 800;
+                transition: .18s;
+            }
+
+                .foot-socials a:hover {
+                    background: rgba(255,255,255,.18);
+                }
+
+        .foot-address {
+            margin-bottom: 14px;
+        }
+
+        .map-frame {
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 12px;
+            color: #fff;
+            display: block;
+            overflow: hidden;
+            background: rgba(255,255,255,.08);
+            box-shadow: 0 18px 46px rgba(3,13,35,.24);
+        }
+
+            .map-frame iframe {
+                width: 100%;
+                height: 160px;
+                border: 0;
+                display: block;
+                pointer-events: none;
+            }
+
+        .directions-link {
+            color: #8db8ff;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 800;
+            margin-top: 14px;
+        }
+
+            .directions-link:hover {
+                color: #fff;
+            }
+
+        .foot-bottom {
+            max-width: 1240px;
+            margin: 46px auto 0;
+            padding: 20px 28px 0;
+            border-top: 1px solid rgba(255,255,255,.14);
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            color: rgba(232,242,255,.72);
+            font-size: 13px;
+        }
+
+        @@media(max-width:980px) {
+            .grid {
+                grid-template-columns: repeat(2,1fr)
+            }
+
+            .strip {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .search {
+                display: none
+            }
+
+            .hero-banner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .hero-visual {
+                justify-content: flex-start;
+                min-width: 0;
+                padding-right: 0;
+                transform: translateY(-10px);
+                width: 100%;
+            }
+
+            .hero-product {
+                height: 110px;
+                width: 110px;
+            }
+
+                .hero-product.main {
+                    height: 145px;
+                    width: 145px;
+                }
+
+            .foot-in {
+                grid-template-columns: 1.2fr 1fr;
+                gap: 34px;
+            }
+        }
+
+        @@media(max-width:760px) {
+            .foot-in {
+                grid-template-columns: 1fr;
+            }
+
+            .foot-bottom {
+                flex-direction: column;
+            }
+        }
+
+        @@media(max-width:600px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .wrap {
+                padding-inline: 18px;
+            }
+
+            .strip {
+                grid-template-columns: 1fr
+            }
+
+            .hero h1 {
+                font-size: 30px
+            }
+
+            .hero-banner {
+                padding: 28px;
+                min-height: 260px
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .foot-in {
+                grid-template-columns: 1fr;
+            }
+
+            .price-pop {
+                right: auto;
+                left: 0
+            }
+        }
+
+        body.guest-auth-open {
+            overflow: hidden;
+        }
+
+        .guest-auth-modal[hidden] {
+            display: none;
+        }
+
+        .guest-auth-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+        }
+
+        .guest-auth-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(8,23,46,.48);
+            backdrop-filter: blur(3px);
+        }
+
+        .guest-auth-dialog {
+            position: relative;
+            width: min(440px, calc(100% - 36px));
+            margin: 14vh auto 0;
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 18px;
+            box-shadow: var(--s3);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .guest-auth-x {
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            border: 0;
+            background: transparent;
+            color: var(--steel);
+            cursor: pointer;
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .guest-auth-icon {
+            align-items: center;
+            background: #fff3cd;
+            border-radius: 50%;
+            color: var(--gold);
+            display: inline-flex;
+            font-size: 26px;
+            font-weight: 900;
+            height: 54px;
+            justify-content: center;
+            margin-bottom: 16px;
+            width: 54px;
+        }
+
+        .guest-auth-dialog h2 {
+            color: var(--navy);
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .guest-auth-dialog p {
+            color: var(--steel);
+            margin-bottom: 22px;
+        }
+
+        .guest-auth-actions {
+            display: grid;
+            gap: 10px;
+        }
+
+        .guest-auth-primary,
+        .guest-auth-secondary {
+            border: 0;
+            border-radius: 11px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            justify-content: center;
+            padding: 12px 18px;
+        }
+
+        .guest-auth-primary {
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            color: #fff;
+        }
+
+        .guest-auth-secondary {
+            background: var(--pale);
+            color: var(--primary);
+        }
+
+        /* cloud service integration */
+        .cloud-service-box {
+            max-width: 1240px;
+            margin: 22px auto 6px;
+            padding: 0 28px;
+        }
+
+        .cloud-card {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 16px;
+            box-shadow: var(--s2);
+            padding: 22px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .cloud-card h3 {
+            color: var(--navy);
+            font-size: 22px;
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        .cloud-card p {
+            color: var(--steel);
+            font-size: 14.5px;
+        }
+
+        .cloud-btn {
+            border: none;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            color: #fff;
+            font-weight: 800;
+            font-family: inherit;
+            font-size: 15px;
+            padding: 12px 20px;
+            border-radius: 11px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(41,121,255,.3);
+            white-space: nowrap;
+            transition: .18s;
+        }
+
+        .cloud-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        #cloudResult {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @@media(max-width:760px) {
+    .cloud-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-in">
+            <a class="logo" asp-page="/Customer/HomePage">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+            </a>
+            <form class="search" method="get" asp-page="/Customer/HomePage">
+                <span>🔍</span>
+                <input type="text" name="q" placeholder="Search products or brands…" value="@(Model.Q ?? "")" />
+                <input class="search-hidden" type="hidden" name="category" value="@Model.Category" />
+                <input class="search-hidden" type="hidden" name="minPrice" value="@Model.MinPrice" />
+                <input class="search-hidden" type="hidden" name="maxPrice" value="@Model.MaxPrice" />
+            </form>
+
+            <!-- compact price filter, sits right beside the search bar -->
+            <div class="price-tool">
+                <button type="button" class="price-btn @(priceActive ? "on" : "")" id="priceBtn">
+                    💲 Price
+                    @if (priceActive)
+                    {
+                        <span class="dot"></span>
+                    }
+                    <span class="caret">▾</span>
+                </button>
+                <div class="price-pop" id="pricePop">
+                    <div class="pp-title">Price range (RM)</div>
+                    <form method="get" asp-page="/Customer/HomePage">
+                        <input type="hidden" name="category" value="@Model.Category" />
+                        <input type="hidden" name="q" value="@Model.Q" />
+                        <div class="pp-row">
+                            <label>Min<input type="number" step="0.01" min="0" name="minPrice" value="@Model.MinPrice" placeholder="0" /></label>
+                            <span class="pp-sep">—</span>
+                            <label>Max<input type="number" step="0.01" min="0" name="maxPrice" value="@Model.MaxPrice" placeholder="200" /></label>
+                        </div>
+                        <div class="pp-actions">
+                            <a class="pp-clear" asp-page="/Customer/HomePage" asp-route-category="@Model.Category" asp-route-q="@Model.Q">Clear</a>
+                            <button type="submit" class="pp-apply">Apply</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <partial name="_CartLink" model="@("cart-link")" />
+                @if (loggedIn)
+                {
+                    <a class="nav-link" asp-page="/Customer/History">🧾 My Orders</a>
+                    <a class="nav-link profile-link" asp-page="/Customer/Profile"><span class="avatar">@UserInitial()</span> My Profile</a>
+                }
+                else
+                {
+                    <a class="nav-link" asp-page="/Account/Login">Log in</a>
+                    <a class="btn-signup" asp-page="/Account/Register">Sign up</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <div class="catbar">
+        <div class="catbar-in">
+            <a class="cat-pill @(active == "All" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">All</a>
+            <a class="cat-pill @(active == "Supplements" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-category="Supplements" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">Supplements</a>
+            <a class="cat-pill @(active == "BathAndBody" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-category="BathAndBody" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">Bath &amp; Body</a>
+            <a class="cat-pill @(active == "Beauty" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-category="Beauty" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">Beauty</a>
+            <a class="cat-pill @(active == "BabyCare" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-category="BabyCare" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">Baby Care</a>
+            <a class="cat-pill @(active == "HealthDevices" ? "active" : "")" asp-page="/Customer/HomePage" asp-route-category="HealthDevices" asp-route-q="@Model.Q" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">Health Devices</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-banner active">
+            <div class="hero-content">
+                <span class="eyebrow">Trusted wellness</span>
+                <h1>Your everyday wellness, beautifully curated.</h1>
+                <p>Supplements, skincare, baby care and home health — chosen with care and delivered to your door.</p>
+                <a class="btn-primary" href="#catalog">Shop all products →</a>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-product back"><img src="/images/products/vitamin-c.png" alt="" /></div>
+                <div class="hero-product main"><img src="/images/products/moisturising-cream.png" alt="" /></div>
+                <div class="hero-product side"><img src="/images/products/spf-50-sunscreen.png" alt="" /></div>
+            </div>
+            <div class="hero-controls">
+                <button class="hero-arrow" type="button" data-hero-prev>‹</button>
+                <button class="hero-arrow" type="button" data-hero-next>›</button>
+            </div>
+        </div>
+        <div class="hero-banner">
+            <div class="hero-content">
+                <span class="eyebrow">Baby care picks</span>
+                <h1>Gentle essentials for little routines.</h1>
+                <p>Stock up on trusted baby care favourites, from daily lotion to dry pants for busy families.</p>
+                <a class="btn-primary" asp-page="/Customer/HomePage" asp-route-category="BabyCare">Shop baby care →</a>
+            </div>
+            <div class="hero-visual baby-care" aria-hidden="true">
+                <div class="hero-product back"><img src="/images/products/baby-lotion.png" alt="" /></div>
+                <div class="hero-product main"><img src="/images/products/baby-dry-pants.png" alt="" /></div>
+            </div>
+            <div class="hero-controls">
+                <button class="hero-arrow" type="button" data-hero-prev>‹</button>
+                <button class="hero-arrow" type="button" data-hero-next>›</button>
+            </div>
+        </div>
+        <div class="hero-banner">
+            <div class="hero-content">
+                <span class="eyebrow">Home health</span>
+                <h1>Health devices for confident check-ins.</h1>
+                <p>Find monitors, thermometers, and essentials that help you care well from home.</p>
+                <a class="btn-primary" asp-page="/Customer/HomePage" asp-route-category="HealthDevices">Shop devices →</a>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-product back"><img src="/images/products/digital-thermometer.png" alt="" /></div>
+                <div class="hero-product main"><img src="/images/products/blood-pressure-monitor.png" alt="" /></div>
+                <div class="hero-product side"><img src="/images/products/pulse-oximeter.png" alt="" /></div>
+            </div>
+            <div class="hero-controls">
+                <button class="hero-arrow" type="button" data-hero-prev>‹</button>
+                <button class="hero-arrow" type="button" data-hero-next>›</button>
+            </div>
+        </div>
+        <div class="hero-banner">
+            <div class="hero-content">
+                <span class="eyebrow">Promo code</span>
+                <h1>Save 10% on your wellness basket.</h1>
+                <p>Use WELLNESS10 at cart checkout and enjoy free shipping from RM 120.</p>
+                <a class="btn-primary" asp-page="/Customer/HomePage" asp-route-category="Supplements">Shop supplements →</a>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-product back"><img src="/images/products/fish-oil.png" alt="" /></div>
+                <div class="hero-product main"><img src="/images/products/vitamin-c.png" alt="" /></div>
+                <div class="hero-product side"><img src="/images/products/magnesium-glycinate.png" alt="" /></div>
+            </div>
+            <div class="hero-controls">
+                <button class="hero-arrow" type="button" data-hero-prev>‹</button>
+                <button class="hero-arrow" type="button" data-hero-next>›</button>
+            </div>
+        </div>
+    </section>
+
+<section class="cloud-service-box">
+    <div class="cloud-card">
+        <div>
+            <h3>Need Help Choosing a Product?</h3>
+            <p>
+                Submit a simple health product enquiry and our cloud service will record the request securely.
+            </p>
+            <p id="cloudResult"></p>
+        </div>
+
+        <button type="button" class="cloud-btn" onclick="saveRequestToCloud()">
+            Submit Health Enquiry
+        </button>
+    </div>
+</section>
+
+    @if (showStrip)
+    {
+        <div class="wrap">
+            <div class="sec-head">
+                <span class="dot"></span>
+                <h2>New arrivals</h2>
+                <span class="line"></span>
+            </div>
+            <div class="strip">
+                @foreach (var p in Model.NewArrivals)
+                {
+                    <a class="mini" asp-page="/Customer/ProductDetails" asp-route-id="@p.Id">
+                        <div class="thumb m-@p.Category">
+                            @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                            {
+                                <img class="product-img" src="@p.ImageUrl" alt="@p.Name" loading="lazy" />
+                            }
+                            else
+                            {
+                                @CatEmoji(p.Category)
+                            }
+                        </div>
+                        <div>
+                            <div class="mt">@p.Category</div>
+                            <div class="mn">@p.Name</div>
+                            <div class="mp">RM@(p.Price.ToString("0.00"))</div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+
+    <main class="wrap" id="catalog">
+        <div class="sec-head">
+            <span class="dot"></span>
+            <h2>@heading</h2>
+            <span class="count">@Model.Products.Count items</span>
+            <span class="line"></span>
+        </div>
+
+        @if (!Model.Products.Any())
+        {
+            <div class="empty-grid">
+                No products match your search or filter. <a asp-page="/Customer/HomePage">Clear filters</a>
+            </div>
+        }
+        else
+        {
+            <div class="grid">
+                @foreach (var p in Model.Products)
+                {
+                    <div class="card">
+                        <a class="media m-@p.Category" asp-page="/Customer/ProductDetails" asp-route-id="@p.Id">
+                            @if (p.Label != ProductLabel.None)
+                            {
+                                <div class="labels"><span class="lbl @LabelClass(p.Label)">@LabelText(p.Label)</span></div>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                            {
+                                <img class="product-img" src="@p.ImageUrl" alt="@p.Name" loading="lazy" />
+                            }
+                            else
+                            {
+                                <span>@CatEmoji(p.Category)</span>
+                            }
+                            @if (p.Stock == 0)
+                            {
+                                <div class="stock-out">Out of stock</div>
+                            }
+                        </a>
+                        <div class="cbody">
+                            <div class="brand">@p.Brand</div>
+                            <a class="pname" asp-page="/Customer/ProductDetails" asp-route-id="@p.Id">@p.Name</a>
+                            <div class="foot">
+                                <div class="price">
+                                    @if (p.OldPrice.HasValue)
+                                    {
+                                        <s>RM@(p.OldPrice.Value.ToString("0.00"))</s>
+                                    }
+                                    RM@(p.Price.ToString("0.00"))
+                                </div>
+                                @if (p.Stock > 0 && loggedIn)
+                                {
+                                    <form method="post" asp-page-handler="AddToCart">
+                                        <input type="hidden" name="productId" value="@p.Id" />
+                                        <input type="hidden" name="category" value="@Model.Category" />
+                                        <input type="hidden" name="q" value="@Model.Q" />
+                                        <input type="hidden" name="minPrice" value="@Model.MinPrice" />
+                                        <input type="hidden" name="maxPrice" value="@Model.MaxPrice" />
+                                        <button class="add" type="submit" title="Add to cart">+</button>
+                                    </form>
+                                }
+                                else if (p.Stock > 0)
+                                {
+                                    <button class="add" type="button" data-guest-auth-open title="Add to cart">+</button>
+                                }
+                                else
+                                {
+                                    <a class="add" asp-page="/Customer/ProductDetails" asp-route-id="@p.Id" title="View product">+</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </main>
+
+    <partial name="_CustomerFooter" />
+    <partial name="_GuestAuthModal" model="@Url.Page("/Customer/HomePage", new { category = Model.Category, q = Model.Q, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice })" />
+
+    <script>
+    // hero carousel
+    const heroSlides = Array.from(document.querySelectorAll('.hero-banner'));
+    let heroIndex = 0;
+    function showHero(index) {
+        heroIndex = (index + heroSlides.length) % heroSlides.length;
+        heroSlides.forEach((slide, i) => slide.classList.toggle('active', i === heroIndex));
+    }
+    document.querySelectorAll('[data-hero-prev]').forEach(button => button.addEventListener('click', () => showHero(heroIndex - 1)));
+    document.querySelectorAll('[data-hero-next]').forEach(button => button.addEventListener('click', () => showHero(heroIndex + 1)));
+    setInterval(() => showHero(heroIndex + 1), 6500);
+
+    // price filter dropdown
+    const priceBtn = document.getElementById('priceBtn');
+    const pricePop = document.getElementById('pricePop');
+    if (priceBtn && pricePop) {
+        priceBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            pricePop.classList.toggle('open');
+        });
+        document.addEventListener('click', function (e) {
+            if (!pricePop.contains(e.target) && !priceBtn.contains(e.target)) {
+                pricePop.classList.remove('open');
+            }
+        });
+    }
+
+    // AWS serverless cloud integration
+    async function saveRequestToCloud() {
+        const resultBox = document.getElementById("cloudResult");
+
+        if (!resultBox) {
+            return;
+        }
+
+        resultBox.innerText = "Submitting enquiry to cloud service...";
+
+        try {
+            const response = await fetch("https://gdkfz0eyp2.execute-api.us-east-1.amazonaws.com/save-request", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    customerName: "Demo Customer",
+                    service: "Health Product Enquiry",
+                    message: "A customer submitted a health product enquiry from the WellNest homepage."
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                resultBox.innerText = "Health enquiry submitted successfully.";
+            } else {
+                resultBox.innerText = "Unable to submit enquiry. Please try again.";
+            }
+        } catch (error) {
+            resultBox.innerText = "Error connecting to cloud service.";
+            console.error(error);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,583 @@
+﻿@page
+@using Healthcare_Industry.Models
+@model Healthcare_Industry.Pages.Admin.OrderManagementModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Order Management";
+    string active = string.IsNullOrWhiteSpace(Model.StatusFilter) ? "All" : Model.StatusFilter;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WellNest Admin — Orders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f6ff;
+            --card: #fff;
+            --navy: #0d2454;
+            --primary: #1246a0;
+            --accent: #2979ff;
+            --mist: #ddeeff;
+            --pale: #eef6ff;
+            --ink: #08172e;
+            --ink2: #1a3251;
+            --slate: #3a5a80;
+            --steel: #6b8db0;
+            --fog: #a8c4d8;
+            --gold: #c8971e;
+            --coral: #e8524a;
+            --mint: #00a896;
+            --orange: #f97316;
+            --s1: 0 1px 4px rgba(10,31,68,.06),0 2px 8px rgba(10,31,68,.04);
+            --s2: 0 4px 18px rgba(10,31,68,.09),0 1px 4px rgba(10,31,68,.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'DM Sans',sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 15.5px
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+        /* topbar */
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid var(--mist);
+            box-shadow: var(--s1);
+            position: sticky;
+            top: 0;
+            z-index: 20
+        }
+
+        .topbar-in {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 28px
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .orb {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg,var(--primary),var(--accent));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 19px;
+            box-shadow: 0 4px 12px rgba(41,121,255,.35)
+        }
+
+        .logo .name {
+            font-family: 'Lora',serif;
+            font-weight: 600;
+            font-size: 21px;
+            color: var(--navy)
+        }
+
+            .logo .name span {
+                color: var(--accent)
+            }
+
+        .logo .tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            color: var(--steel);
+            text-transform: uppercase;
+            margin-left: 4px
+        }
+
+        .nav {
+            display: flex;
+            gap: 6px
+        }
+
+            .nav a {
+                padding: 8px 14px;
+                border-radius: 9px;
+                font-weight: 600;
+                font-size: 14.5px;
+                color: var(--slate);
+                transition: .15s
+            }
+
+                .nav a:hover {
+                    background: var(--pale);
+                    color: var(--primary)
+                }
+
+                .nav a.active {
+                    background: linear-gradient(135deg,var(--primary),var(--accent));
+                    color: #fff
+                }
+
+        .logout {
+            margin-left: auto
+        }
+
+            .logout button {
+                font-family: 'DM Sans';
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--slate);
+                background: var(--pale);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 9px;
+                cursor: pointer;
+                transition: .15s
+            }
+
+                .logout button:hover {
+                    background: var(--mist);
+                    color: var(--coral)
+                }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 28px 24px 60px
+        }
+
+        .page-head {
+            margin-bottom: 22px
+        }
+
+            .page-head h1 {
+                font-family: 'Lora',serif;
+                font-style: italic;
+                font-weight: 600;
+                font-size: 30px;
+                color: var(--navy)
+            }
+
+            .page-head p {
+                color: var(--steel);
+                font-size: 14.5px;
+                margin-top: 3px
+            }
+        /* stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 16px;
+            margin-bottom: 24px
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 14px;
+            box-shadow: var(--s1);
+            padding: 18px 20px
+        }
+
+            .stat .num {
+                font-family: 'Lora',serif;
+                font-weight: 600;
+                font-size: 28px;
+                color: var(--navy);
+                line-height: 1
+            }
+
+            .stat .lbl {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--steel);
+                margin-top: 6px
+            }
+        /* filter pills */
+        .filters {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-bottom: 22px
+        }
+
+        .fpill {
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--slate);
+            background: #fff;
+            border: 1.5px solid var(--mist);
+            transition: .15s
+        }
+
+            .fpill:hover {
+                border-color: #c2deff;
+                color: var(--primary)
+            }
+
+            .fpill.active {
+                background: linear-gradient(135deg,var(--primary),var(--accent));
+                color: #fff;
+                border-color: transparent
+            }
+        /* order cards */
+        .orders {
+            display: grid;
+            gap: 16px
+        }
+
+        .order-card {
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 16px;
+            box-shadow: var(--s1);
+            overflow: hidden
+        }
+
+        .oc-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--mist);
+            background: var(--pale)
+        }
+
+        .oc-id {
+            font-family: 'Lora',serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--navy)
+        }
+
+        .oc-meta {
+            font-size: 13px;
+            color: var(--steel);
+            margin-top: 2px
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 13px;
+            border-radius: 20px;
+            letter-spacing: .3px
+        }
+
+        .b-Pending {
+            background: rgba(249,115,22,.14);
+            color: var(--orange)
+        }
+
+        .b-Packed {
+            background: rgba(41,121,255,.14);
+            color: var(--primary)
+        }
+
+        .b-Shipped {
+            background: rgba(18,70,160,.12);
+            color: var(--navy)
+        }
+
+        .b-Delivered {
+            background: rgba(0,168,150,.14);
+            color: var(--mint)
+        }
+
+        .b-Cancelled {
+            background: rgba(232,82,74,.14);
+            color: var(--coral)
+        }
+
+        .oc-body {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 24px;
+            padding: 20px 22px
+        }
+
+        .oc-cust b {
+            color: var(--ink);
+            font-size: 15px
+        }
+
+        .muted {
+            color: var(--steel);
+            font-size: 13.5px;
+            margin-top: 3px
+        }
+
+        .oc-items {
+            border-left: 1px solid var(--mist);
+            padding-left: 24px
+        }
+
+        .oc-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--ink2);
+            padding: 5px 0
+        }
+
+            .oc-item span:last-child {
+                font-weight: 600;
+                color: var(--primary);
+                white-space: nowrap
+            }
+
+        .oc-total {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px dashed var(--mist);
+            margin-top: 8px;
+            padding-top: 10px;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 15px
+        }
+
+        .oc-foot {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 22px;
+            border-top: 1px solid var(--mist);
+            background: #fcfdff
+        }
+
+            .oc-foot label {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--slate)
+            }
+
+            .oc-foot select {
+                font-family: 'DM Sans';
+                font-size: 14px;
+                color: var(--ink);
+                padding: 9px 12px;
+                border: 1.5px solid var(--mist);
+                border-radius: 9px;
+                background: #fff;
+                outline: none
+            }
+
+                .oc-foot select:focus {
+                    border-color: var(--accent)
+                }
+
+            .oc-foot button {
+                font-family: 'DM Sans';
+                font-weight: 700;
+                font-size: 14px;
+                color: #fff;
+                background: linear-gradient(135deg,var(--primary),var(--accent));
+                border: none;
+                padding: 9px 20px;
+                border-radius: 9px;
+                cursor: pointer;
+                transition: .15s
+            }
+
+                .oc-foot button:hover {
+                    transform: translateY(-1px)
+                }
+
+        .empty {
+            text-align: center;
+            color: var(--steel);
+            font-size: 15px;
+            padding: 50px;
+            background: #fff;
+            border: 1px solid var(--mist);
+            border-radius: 16px
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: var(--coral);
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 14px
+        }
+
+        @@media(max-width:820px) {
+            .stats {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .oc-body {
+                grid-template-columns: 1fr
+            }
+
+            .oc-items {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid var(--mist);
+                padding-top: 14px
+            }
+
+            .nav {
+                display: none
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-in">
+            <a class="logo" asp-page="/Admin/Dashboard">
+                <span class="orb">🌿</span>
+                <span class="name">Well<span>Nest</span></span>
+                <span class="tag">Admin</span>
+            </a>
+            <nav class="nav">
+                <a asp-page="/Admin/Dashboard">Dashboard</a>
+                <a asp-page="/Admin/ProductManagement">Products</a>
+                <a asp-page="/Admin/OrderManagement" class="active">Orders</a>
+                <a asp-page="/Admin/SalesDashboard">Sales</a>
+            </nav>
+            <form class="logout" method="post" asp-page="/Account/Logout">
+                <button type="submit">Log out</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="page-head">
+            <h1>Order Management</h1>
+            <p>View customer orders and update their delivery status.</p>
+        </div>
+
+        @if (TempData["StatusError"] != null)
+        {
+            <div class="status-error">⚠️ @TempData["StatusError"]</div>
+        }
+
+        <div class="stats">
+            <div class="stat"><div class="num">@Model.TotalOrders</div><div class="lbl">Total orders</div></div>
+            <div class="stat"><div class="num">@Model.PendingCount</div><div class="lbl">Pending</div></div>
+            <div class="stat"><div class="num">@Model.DeliveredCount</div><div class="lbl">Delivered</div></div>
+            <div class="stat"><div class="num">RM@(Model.TotalRevenue.ToString("0.00"))</div><div class="lbl">Revenue (excl. cancelled)</div></div>
+        </div>
+
+        <div class="filters">
+            <a class="fpill @(active == "All" ? "active" : "")" asp-page="/Admin/OrderManagement">All</a>
+            @foreach (var s in Enum.GetValues<OrderStatus>())
+            {
+                <a class="fpill @(active == s.ToString() ? "active" : "")" asp-page="/Admin/OrderManagement" asp-route-status="@s">@s</a>
+            }
+        </div>
+
+        @if (!Model.Orders.Any())
+        {
+            <div class="empty">No orders@(string.IsNullOrWhiteSpace(Model.StatusFilter) ? "" : " with this status") yet.</div>
+        }
+        else
+        {
+            <div class="orders">
+                @foreach (var o in Model.Orders)
+                {
+                    <div class="order-card">
+                        <div class="oc-head">
+                            <div>
+                                <div class="oc-id">Order #@o.Id</div>
+                                <div class="oc-meta">@o.OrderDate.ToLocalTime().ToString("d MMM yyyy, h:mm tt")</div>
+                            </div>
+                            <span class="badge b-@o.Status">@o.Status</span>
+                        </div>
+                        <div class="oc-body">
+                            <div class="oc-cust">
+                                <b>@o.CustomerName</b>
+                                <div class="muted">@o.CustomerEmail</div>
+                                <div class="muted">📍 @o.DeliveryAddress</div>
+                                <div class="muted">Payment: @o.PaymentStatus @(!string.IsNullOrWhiteSpace(o.PaymentReference) ? $"({o.PaymentReference})" : "")</div>
+                                @if (!string.IsNullOrWhiteSpace(o.TrackingNumber))
+                                {
+                                    <div class="muted">Tracking: @o.TrackingNumber</div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(o.AssignedDeliveryId) && Model.RiderInfo.ContainsKey(o.AssignedDeliveryId))
+                                {
+                                    var rider = Model.RiderInfo[o.AssignedDeliveryId];
+                                    <div class="muted">🛵 Rider: @rider.Name @(!string.IsNullOrWhiteSpace(rider.Phone) ? $"({rider.Phone})" : "")</div>
+                                }
+                                else if (!string.IsNullOrWhiteSpace(o.AssignedDeliveryId))
+                                {
+                                    <div class="muted">🛵 Rider assigned</div>
+                                }
+                                else
+                                {
+                                    <div class="muted" style="color:var(--fog);">🛵 Not yet assigned</div>
+                                }
+                            </div>
+                            <div class="oc-items">
+                                @foreach (var it in o.Items)
+                                {
+                                    <div class="oc-item">
+                                        <span>@it.ProductName × @it.Quantity</span>
+                                        <span>RM@((it.UnitPrice * it.Quantity).ToString("0.00"))</span>
+                                    </div>
+                                }
+                                @if (o.Discount > 0)
+                                {
+                                    <div class="oc-total"><span>Discounts</span><span>- RM@(o.Discount.ToString("0.00"))</span></div>
+                                }
+                                <div class="oc-total"><span>Total</span><span>RM@(o.Total.ToString("0.00"))</span></div>
+                            </div>
+                        </div>
+                        <div class="oc-foot">
+                            <form method="post" asp-page-handler="UpdateStatus" style="display:flex;align-items:center;gap:10px">
+                                <input type="hidden" name="id" value="@o.Id" />
+                                <input type="hidden" name="filter" value="@Model.StatusFilter" />
+                                <label>Status:</label>
+                                <select name="status">
+                                    @foreach (var s in Enum.GetValues<OrderStatus>())
+                                    {
+                                        @if (s == OrderStatus.Delivered && o.Status != OrderStatus.Delivered)
+                                        {
+                                            continue;
+                                        }
+                                        if (s == o.Status)
+                                        {
+                                            <option value="@s" selected>@s</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@s">@s</option>
+                                        }
+                                    }
+                                </select>
+                                <button type="submit">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</body>
+</html>

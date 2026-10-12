@@ -1,0 +1,737 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\dashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\dashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\productmanagement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\productmanagement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\customer\\homepage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\customer\\homepage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\customer\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\customer\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\deliverydashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\deliverydashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\healthcare industry.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:healthcare industry.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\updatestatus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\updatestatus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\riders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\riders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\riders.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\riders.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\deliverydashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\deliverydashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\updatestatus.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\updatestatus.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\orderdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\orderdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\orderdetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\orderdetails.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\assignorders.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\assignorders.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\services\\delivery\\deliveryrolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:services\\delivery\\deliveryrolehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\payout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\payout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\assignorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\assignorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\delivery\\payout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\delivery\\payout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\salesdashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\salesdashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\salesdashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\salesdashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\ordermanagement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\ordermanagement.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\ordermanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\ordermanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\admin\\productmanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\admin\\productmanagement.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\wwwroot\\sw.js||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:wwwroot\\sw.js||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\wwwroot\\offline.html||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:wwwroot\\offline.html||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\model\\withdrawalrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\model\\withdrawalrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\customer\\tracking.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\customer\\tracking.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\migrations\\20260705142554_addwithdrawalrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:migrations\\20260705142554_addwithdrawalrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\model\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\model\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\customer\\tracking.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\customer\\tracking.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\wwwroot\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:wwwroot\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\pages\\model\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:pages\\model\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|c:\\users\\itsuki\\desktop\\y3s2\\cloud technology\\healthcare industry\\data\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB7681A0-0C9F-4D8B-B629-E9E4B844C62D}|Healthcare Industry.csproj|solutionrelative:data\\dbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 520,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{de1fc918-f32e-4dd7-a915-1792a051f26b}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductManagement.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\ProductManagement.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\ProductManagement.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\ProductManagement.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\ProductManagement.cshtml.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-07T03:35:28.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HomePage.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\HomePage.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Customer\\HomePage.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\HomePage.cshtml.cs",
+              "RelativeToolTip": "Pages\\Customer\\HomePage.cshtml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-07T03:30:38.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Admin\\Dashboard.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\Dashboard.cshtml",
+              "RelativeToolTip": "Pages\\Admin\\Dashboard.cshtml",
+              "ViewState": "AgIAAHcCAAAAAAAAAAAAAEUDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-06T11:31:41.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dashboard.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\Dashboard.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\Dashboard.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\Dashboard.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\Dashboard.cshtml.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAwA4AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T13:39:34.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HomePage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\HomePage.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Customer\\HomePage.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\HomePage.cshtml",
+              "RelativeToolTip": "Pages\\Customer\\HomePage.cshtml",
+              "ViewState": "AgIAAE8FAAAAAAAAAAAAAEwFAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-22T16:02:51.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UpdateStatus.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\UpdateStatus.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\UpdateStatus.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\UpdateStatus.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\UpdateStatus.cshtml",
+              "ViewState": "AgIAAMoBAAAAAAAAAAAiwOUBAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T14:40:13.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Healthcare Industry.csproj",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Healthcare Industry.csproj",
+              "RelativeDocumentMoniker": "Healthcare Industry.csproj",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Healthcare Industry.csproj",
+              "RelativeToolTip": "Healthcare Industry.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-10T13:12:51.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DeliveryDashboard.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\DeliveryDashboard.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\DeliveryDashboard.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\DeliveryDashboard.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\DeliveryDashboard.cshtml.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAwwIAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T14:39:34.579Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DeliveryDashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\DeliveryDashboard.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\DeliveryDashboard.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\DeliveryDashboard.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\DeliveryDashboard.cshtml",
+              "ViewState": "AgIAAEwCAAAAAAAAAAAwwGECAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T14:39:25.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Riders.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Riders.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\Riders.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Riders.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\Riders.cshtml",
+              "ViewState": "AgIAABoCAAAAAAAAAAAswCsCAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-05T14:42:23.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Riders.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Riders.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\Riders.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Riders.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\Riders.cshtml.cs",
+              "ViewState": "AgIAAOcAAAAAAAAAAAAqwP0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T14:42:34.986Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UpdateStatus.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\UpdateStatus.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\UpdateStatus.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\UpdateStatus.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\UpdateStatus.cshtml.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAiwIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T14:40:50.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "OrderDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\OrderDetails.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\OrderDetails.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\OrderDetails.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\OrderDetails.cshtml",
+              "ViewState": "AgIAAN0BAAAAAAAAAAAiwO8BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T14:39:51.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "OrderDetails.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\OrderDetails.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\OrderDetails.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\OrderDetails.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\OrderDetails.cshtml.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAA4wCwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T14:39:58.552Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AssignOrders.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\AssignOrders.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\AssignOrders.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\AssignOrders.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\AssignOrders.cshtml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-10T01:31:36.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DeliveryRoleHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Services\\Delivery\\DeliveryRoleHelper.cs",
+              "RelativeDocumentMoniker": "Services\\Delivery\\DeliveryRoleHelper.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Services\\Delivery\\DeliveryRoleHelper.cs",
+              "RelativeToolTip": "Services\\Delivery\\DeliveryRoleHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-10T01:26:29.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-10T01:21:31.546Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Payout.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Payout.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\Payout.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Payout.cshtml.cs",
+              "RelativeToolTip": "Pages\\Delivery\\Payout.cshtml.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAuwFYAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T15:00:24.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAiwGQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T03:00:57.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Payout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Payout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\Payout.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\Payout.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\Payout.cshtml",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAmwG8BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-05T15:00:20.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AssignOrders.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\AssignOrders.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Delivery\\AssignOrders.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Delivery\\AssignOrders.cshtml",
+              "RelativeToolTip": "Pages\\Delivery\\AssignOrders.cshtml",
+              "ViewState": "AgIAAK4BAAAAAAAAAAAwwL8BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T14:38:20.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "SalesDashboard.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\SalesDashboard.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\SalesDashboard.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\SalesDashboard.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\SalesDashboard.cshtml.cs",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAcwOEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T08:58:26.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SalesDashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\SalesDashboard.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Admin\\SalesDashboard.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\SalesDashboard.cshtml",
+              "RelativeToolTip": "Pages\\Admin\\SalesDashboard.cshtml",
+              "ViewState": "AgIAAC0BAAAAAAAAAAAAwEgCAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-05T09:05:00.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "OrderManagement.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\OrderManagement.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Admin\\OrderManagement.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\OrderManagement.cshtml",
+              "RelativeToolTip": "Pages\\Admin\\OrderManagement.cshtml",
+              "ViewState": "AgIAACsCAAAAAAAAAAAAwEYCAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T14:34:02.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "OrderManagement.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\OrderManagement.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Admin\\OrderManagement.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\OrderManagement.cshtml.cs",
+              "RelativeToolTip": "Pages\\Admin\\OrderManagement.cshtml.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAUwFMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T14:34:16.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAqwGAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T15:21:49.047Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ProductManagement.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\ProductManagement.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Admin\\ProductManagement.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Admin\\ProductManagement.cshtml",
+              "RelativeToolTip": "Pages\\Admin\\ProductManagement.cshtml",
+              "ViewState": "AgIAAAkCAAAAAAAAAAAuwCMCAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T03:40:31.124Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwCYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-06T10:59:21.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "offline.html",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\offline.html",
+              "RelativeDocumentMoniker": "wwwroot\\offline.html",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\offline.html",
+              "RelativeToolTip": "wwwroot\\offline.html",
+              "ViewState": "AgIAABsAAAAAAAAAAAAiwDEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-07-05T08:11:18.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "sw.js",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\sw.js",
+              "RelativeDocumentMoniker": "wwwroot\\sw.js",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\sw.js",
+              "RelativeToolTip": "wwwroot\\sw.js",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwCcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-07-05T08:09:16.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "Pages\\Account\\Register.cshtml",
+              "ViewState": "AgIAACkBAAAAAAAAAAAiwD8BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-05T15:21:44.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "WithdrawalRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\WithdrawalRequest.cs",
+              "RelativeDocumentMoniker": "Pages\\Model\\WithdrawalRequest.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\WithdrawalRequest.cs",
+              "RelativeToolTip": "Pages\\Model\\WithdrawalRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T14:22:13.297Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Tracking.cshtml",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\Tracking.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Customer\\Tracking.cshtml",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\Tracking.cshtml",
+              "RelativeToolTip": "Pages\\Customer\\Tracking.cshtml",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAgwNgAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-04T10:39:19.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "20260705142554_AddWithdrawalRequests.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Migrations\\20260705142554_AddWithdrawalRequests.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260705142554_AddWithdrawalRequests.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Migrations\\20260705142554_AddWithdrawalRequests.cs",
+              "RelativeToolTip": "Migrations\\20260705142554_AddWithdrawalRequests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T14:25:55.626Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "Pages\\Model\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\ApplicationUser.cs",
+              "RelativeToolTip": "Pages\\Model\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:17:42.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:22:56.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Tracking.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\Tracking.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Customer\\Tracking.cshtml.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Customer\\Tracking.cshtml.cs",
+              "RelativeToolTip": "Pages\\Customer\\Tracking.cshtml.cs",
+              "ViewState": "AgIAAN8AAAAAAAAAAAAAAAEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-04T10:40:19.156Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\Order.cs",
+              "RelativeDocumentMoniker": "Pages\\Model\\Order.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Pages\\Model\\Order.cs",
+              "RelativeToolTip": "Pages\\Model\\Order.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAywCYAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-25T03:42:54.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "manifest.json",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\manifest.json",
+              "RelativeDocumentMoniker": "wwwroot\\manifest.json",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\wwwroot\\manifest.json",
+              "RelativeToolTip": "wwwroot\\manifest.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-05T08:01:30.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "DbSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Data\\DbSeeder.cs",
+              "RelativeDocumentMoniker": "Data\\DbSeeder.cs",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\Data\\DbSeeder.cs",
+              "RelativeToolTip": "Data\\DbSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T03:40:11.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Itsuki\\Desktop\\Y3S2\\Cloud Technology\\Healthcare Industry\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwBEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-29T03:06:44.477Z"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 279,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{007a3a6b-b5b2-454d-a2bd-cf929f989be2}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 196,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:619288651:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
